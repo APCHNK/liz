@@ -15,4 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookingVideo();
   initTextSliders();
   initFaq();
+
+  // Featured image reveal
+  document.querySelectorAll('.page .img-wrap').forEach(el => {
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { el.classList.add('is-visible'); }
+    }, { threshold: 0.1 }).observe(el);
+  });
 });
