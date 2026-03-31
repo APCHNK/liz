@@ -1,0 +1,34 @@
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    @include media-laptop {
+        gap: 80px;
+    }
+}
+
+.light-bg {
+    background: $color-light;
+}
+
+.banner-bg {
+    background: #EDD4D4;
+}
+
+.white-bg {
+    background: $color-white;
+}
+
+body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+
+    @include media-laptop {
+        overflow: auto;
+        position: static;
+        height: auto;
+    }
+}

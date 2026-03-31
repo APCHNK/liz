@@ -1,0 +1,241 @@
+<?php
+/**
+ * Boney M feat Liz Mitchell — Theme functions
+ */
+
+if (!defined('ABSPATH')) exit;
+
+// -----------------------------------------------------------------------------
+// Theme Setup
+// -----------------------------------------------------------------------------
+add_action('after_setup_theme', function () {
+    add_theme_support('menus');
+    add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+    register_nav_menu('primary', 'Primary Menu');
+});
+
+// -----------------------------------------------------------------------------
+// MIME Types (SVG + MP3)
+// -----------------------------------------------------------------------------
+add_filter('upload_mimes', function ($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    $mimes['mp3'] = 'audio/mpeg';
+    return $mimes;
+});
+
+// -----------------------------------------------------------------------------
+// ACF Options Page
+// -----------------------------------------------------------------------------
+if (function_exists('acf_add_options_page')) {
+    acf_add_options_page(array(
+        'menu_slug'       => 'options',
+        'page_title'      => 'bnmusic',
+        'position'        => 25,
+        'icon_url'        => 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgICAgICAgICAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMC42MjU5IDguMDIwNjNINy44OTIwNkM3LjgxMTg5IDcuMTYyNzkgNy4yNzc0IDYuNzMzODYgNi4yODg2MSA2LjczMzg2QzUuOTE4NCA2LjcwOTc0IDUuNTQ4ODggNi43OTAzMSA1LjIyMjMxIDYuOTY2MzZDNS4xMTQ4IDcuMDI0MTcgNS4wMjQ2NyA3LjEwOTY0IDQuOTYxMjUgNy4yMTM5NEM0Ljg5NzgyIDcuMzE4MjQgNC44NjM0IDcuNDM3NTkgNC44NjE1NCA3LjU1OTY0QzQuODYxMDQgNy42NzgxNyA0Ljg5MjQgNy43OTQ2NSA0Ljk1MjM0IDcuODk2OUM1LjAxMjI5IDcuOTk5MTYgNS4wOTg2IDguMDgzNDMgNS4yMDIyNyA4LjE0MDg5QzUuNTI4MDIgOC4zMjgxOCA1Ljg4MTAyIDguNDYzNDMgNi4yNDg1MiA4LjU0MTc2QzcuMjk3OTggOC43NzcxNiA4LjMyOTQ0IDkuMDg2NiA5LjMzNTE3IDkuNDY3NzVDOS44MTg1NiA5LjY2OTQ5IDEwLjIyODIgMTAuMDE1IDEwLjUwODYgMTAuNDU3NEMxMC43ODkgMTAuODk5OSAxMC45MjY1IDExLjQxNzggMTAuOTAyNSAxMS45NDExQzEwLjkyMzMgMTIuMzkyNSAxMC44Mzc2IDEyLjg0MjYgMTAuNjUyNCAxMy4yNTQ4QzEwLjQ2NzIgMTMuNjY3IDEwLjE4NzYgMTQuMDI5OSA5LjgzNjI1IDE0LjMxNDJDOS4xMjUzOCAxNC44OTE0IDguMDMzNyAxNS4xODAxIDYuNTYxMiAxNS4xODAxQzUuMDMzOTEgMTUuMTgwMSAzLjg0NzM1IDE0Ljg3MTQgMy4wMTM1NiAxNC4yNTQxQzIuNjExOTEgMTMuOTY5NyAyLjI4NDU4IDEzLjU5MjkgMi4wNTkyMiAxMy4xNTU1QzEuODMzODYgMTIuNzE4IDEuNzE3MDkgMTIuMjMyNyAxLjcxODc3IDExLjc0MDZINC42OTMxN0M0LjY4ODk3IDExLjkzMSA0LjczMTc2IDEyLjExOTUgNC44MTc3NiAxMi4yODk0QzQuOTAzNzYgMTIuNDU5MyA1LjAzMDMyIDEyLjYwNTQgNS4xODYyMyAxMi43MTQ3QzUuNTk5NTkgMTIuOTg3OSA2LjA5MDc3IDEzLjExODggNi41ODUyNSAxMy4wODc1QzcuNTc1MzggMTMuMDg3NSA4LjA3MjQ1IDEyLjc3ODkgOC4wNzI0NSAxMi4xNjU2QzguMDc4MjYgMTIuMDU1NSA4LjA1NDExIDExLjk0NTkgOC4wMDI1OCAxMS44NDg1QzcuOTUxMDUgMTEuNzUxMSA3Ljg3NDA2IDExLjY2OTUgNy43Nzk4MiAxMS42MTI0QzcuNDYzNzEgMTEuNDM1IDcuMTIxMzYgMTEuMzA5MiA2Ljc2NTY0IDExLjIzOTZDNS43Njg5NyAxMS4wMjU4IDQuNzkzNTkgMTAuNzIyNSAzLjg1MTM2IDEwLjMzMzZDMi42Njg4MSA5Ljc0ODM1IDIuMDc5NTQgOC44NjY0NiAyLjA3OTU0IDcuNjk5OTRDMi4wNjc1NiA3LjI4OTE0IDIuMTUzNjcgNi44ODEzOSAyLjMzMDc0IDYuNTEwNTFDMi41MDc4MSA2LjEzOTY0IDIuNzcwNzUgNS44MTYzMSAzLjA5Nzc0IDUuNTY3MzVDMy43NzExOSA1LjAzNDIgNC44NTc1MyA0Ljc2NTYyIDYuMzQ0NzMgNC43NjU2MkM3Ljc2Mzc5IDQuNzY1NjIgOC44MTgwNiA1LjAzNDIgOS40OTk1MiA1LjU2NzM1QzkuODUyNzggNS44Njg1IDEwLjEzNjQgNi4yNDI3NCAxMC4zMzA5IDYuNjY0MjNDMTAuNTI1NCA3LjA4NTczIDEwLjYyNjEgNy41NDQ0MSAxMC42MjU5IDguMDA4NjFWOC4wMjA2M1oiLz4KICAgICAgICAgICAgPHBhdGggZD0iTTE4LjI2NjYgMTMuMTgzM0gxMS43Nzg4VjE1LjE5NTRIMTguMjY2NlYxMy4xODMzWiIvPgogICAgICAgICAgICA8L3N2Zz4=',
+        'show_in_graphql' => true,
+    ));
+
+    acf_add_options_page(array(
+        'menu_slug'  => 'header-settings',
+        'page_title' => 'Header Settings',
+        'menu_title' => 'Header',
+        'icon_url'   => 'dashicons-arrow-up-alt',
+        'position'   => 60,
+    ));
+
+    acf_add_options_page(array(
+        'menu_slug'  => 'footer-settings',
+        'page_title' => 'Footer Settings',
+        'menu_title' => 'Footer',
+        'icon_url'   => 'dashicons-arrow-down-alt',
+        'position'   => 61,
+    ));
+}
+
+// -----------------------------------------------------------------------------
+// Contact Form 7 tweaks
+// -----------------------------------------------------------------------------
+add_filter('show_admin_bar', '__return_false');
+
+add_filter('wpcf7_autop_or_not', '__return_false');
+add_filter('wpcf7_load_css', '__return_false');
+add_filter('wpcf7_form_autocomplete', function () { return 'off'; });
+
+// -----------------------------------------------------------------------------
+// Custom Page Template: Frontpage
+// -----------------------------------------------------------------------------
+add_filter('theme_page_templates', function ($templates) {
+    $templates['frontpage-template'] = 'Frontpage';
+    return $templates;
+});
+
+// -----------------------------------------------------------------------------
+// Remove block theme styles that conflict with our custom CSS
+// -----------------------------------------------------------------------------
+add_action('wp_enqueue_scripts', function () {
+    wp_dequeue_style('wp-block-library');
+    wp_dequeue_style('wp-block-library-theme');
+    wp_dequeue_style('global-styles');
+    wp_dequeue_style('classic-theme-styles');
+    wp_dequeue_style('wp-img-auto-sizes-contain');
+    wp_dequeue_style('wp-emoji-styles');
+}, 100);
+
+remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
+remove_action('wp_body_open', 'wp_global_styles_render_svg_filters');
+add_action('init', function () {
+    remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
+    remove_action('wp_footer', 'wp_enqueue_global_styles', 1);
+});
+
+// -----------------------------------------------------------------------------
+// Enqueue Assets
+// -----------------------------------------------------------------------------
+add_action('wp_enqueue_scripts', function () {
+    $theme_uri = get_template_directory_uri();
+    $theme_dir = get_template_directory();
+
+    // Main CSS (compiled by webpack)
+    wp_enqueue_style(
+        'theme-main',
+        $theme_uri . '/dist/main.css',
+        array(),
+        filemtime($theme_dir . '/dist/main.css')
+    );
+
+    // Main JS (compiled by webpack)
+    wp_enqueue_script(
+        'theme-main',
+        $theme_uri . '/dist/main.js',
+        array(),
+        filemtime($theme_dir . '/dist/main.js'),
+        true
+    );
+});
+
+// -----------------------------------------------------------------------------
+// Google Analytics / GTM
+// -----------------------------------------------------------------------------
+add_action('wp_head', function () {
+    ?>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KZ8FXG3');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google Tag Manager (second container) -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-54SF8F5');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google Analytics (UA) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-200192606-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-200192606-1');
+    </script>
+    <?php
+}, 1);
+
+add_action('wp_body_open', function () {
+    ?>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KZ8FXG3" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-54SF8F5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <?php
+});
+
+// -----------------------------------------------------------------------------
+// Instagram Feed (via Social Feed Gallery plugin)
+// -----------------------------------------------------------------------------
+function theme_get_instagram_photos($count = 8) {
+    $accounts = get_option('insta_gallery_accounts', []);
+    if (empty($accounts)) return [];
+
+    $account = reset($accounts);
+    $token = $account['access_token'] ?? '';
+    if (empty($token)) return [];
+
+    $transient_key = 'liz_instagram_photos';
+    $photos = get_transient($transient_key);
+    if ($photos !== false) return array_slice($photos, 0, $count);
+
+    $url = 'https://graph.instagram.com/me/media?fields=id,media_type,media_url,permalink,thumbnail_url&access_token=' . $token;
+    $response = wp_remote_get($url);
+    if (is_wp_error($response)) return [];
+
+    $body = wp_remote_retrieve_body($response);
+    $data = json_decode($body, true);
+    if (empty($data['data'])) return [];
+
+    $photos = [];
+    foreach ($data['data'] as $item) {
+        if ($item['media_type'] === 'IMAGE' || $item['media_type'] === 'CAROUSEL_ALBUM') {
+            $photos[] = ['url' => $item['media_url'], 'link' => $item['permalink']];
+        } elseif ($item['media_type'] === 'VIDEO' && !empty($item['thumbnail_url'])) {
+            $photos[] = ['url' => $item['thumbnail_url'], 'link' => $item['permalink']];
+        }
+    }
+
+    set_transient($transient_key, $photos, 5 * MINUTE_IN_SECONDS);
+    return array_slice($photos, 0, $count);
+}
+
+// -----------------------------------------------------------------------------
+// Custom Menu Walker
+// -----------------------------------------------------------------------------
+class Theme_Menu_Walker extends Walker_Nav_Menu {
+
+    public function start_lvl(&$output, $depth = 0, $args = null) {
+        $output .= '<ul class="submenu">';
+    }
+
+    public function end_lvl(&$output, $depth = 0, $args = null) {
+        $output .= '</ul>';
+    }
+
+    public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $classes = empty($item->classes) ? array() : (array) $item->classes;
+        $has_children = in_array('menu-item-has-children', $classes);
+        $is_current = in_array('current-menu-item', $classes) || in_array('current-menu-ancestor', $classes);
+
+        $li_classes = array();
+        if ($has_children) $li_classes[] = 'has-submenu';
+        if ($is_current) $li_classes[] = 'current';
+
+        $li_class_str = !empty($li_classes) ? ' class="' . esc_attr(implode(' ', $li_classes)) . '"' : '';
+
+        $output .= '<li' . $li_class_str . '>';
+
+        $a_classes = array();
+        if ($is_current) $a_classes[] = 'current';
+        $a_class_str = !empty($a_classes) ? ' class="' . esc_attr(implode(' ', $a_classes)) . '"' : '';
+
+        $output .= '<a href="' . esc_url($item->url) . '"' . $a_class_str . '>';
+        $output .= esc_html($item->title);
+
+        if ($has_children) {
+            $output .= '<span class="submenu-indicator">&#9662;</span>';
+        }
+
+        $output .= '</a>';
+    }
+
+    public function end_el(&$output, $item, $depth = 0, $args = null) {
+        // Add <hr> separator inside <li> for top-level items (styled by SCSS)
+        if ($depth === 0) {
+            $output .= '<hr>';
+        }
+        $output .= '</li>';
+    }
+}

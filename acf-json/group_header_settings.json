@@ -1,0 +1,66 @@
+{
+    "key": "group_header_settings",
+    "title": "Header",
+    "fields": [
+        {
+            "key": "field_header_logo",
+            "label": "Logo",
+            "name": "header_logo",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_header_cta_text",
+            "label": "CTA Button Text",
+            "name": "header_cta_text",
+            "type": "text",
+            "default_value": "Book Now",
+            "wrapper": { "width": "50" }
+        },
+        {
+            "key": "field_header_cta_action",
+            "label": "CTA Button Action",
+            "name": "header_cta_action",
+            "type": "select",
+            "choices": {
+                "modal": "Open Booking Modal",
+                "link": "Custom Link"
+            },
+            "default_value": "modal",
+            "wrapper": { "width": "50" }
+        },
+        {
+            "key": "field_header_cta_link",
+            "label": "CTA Link",
+            "name": "header_cta_link",
+            "type": "url",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_header_cta_action",
+                        "operator": "==",
+                        "value": "link"
+                    }
+                ]
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "header-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "modified": 1711900000
+}

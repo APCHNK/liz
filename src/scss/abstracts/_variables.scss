@@ -1,0 +1,60 @@
+//Colors
+$color-primary: #ff4034;
+$color-primary-hover: #cf1f14;
+
+$color-light: #fff0f0;
+$color-dark: #1b1830;
+$color-white: #ffffff;
+
+// Breakpoints (min width)
+$mobile: 460px;
+$tablet: 768px;
+$laptop: 1024px;
+$laptop-l: 1280px;
+$desktop: 1440px;
+$desktop-l: 1920px;
+
+@mixin media-mobile {
+  @media (min-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin media-tablet {
+  @media (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin media-laptop {
+  @media (min-width: $laptop) {
+    @content;
+  }
+}
+
+@mixin media-laptop-l {
+  @media (min-width: $laptop-l) {
+    @content;
+  }
+}
+
+@mixin media-desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin media-desktop-l {
+  @media (min-width: $desktop-l) {
+    @content;
+  }
+}
+
+// Border-radius
+$border-radius-s: 20px;
+$border-radius-sm: 24px;
+$border-radius-md: 32px;
+$border-radius: 34px;
+$border-radius-lg: 40px;
+
+$border-radius-rounded: 50%;

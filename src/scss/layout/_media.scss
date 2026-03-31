@@ -1,0 +1,41 @@
+.media-wrap {
+  border-radius: 8px;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  @include media-tablet {
+    border-radius: 40px;
+  }
+  &.bordered {
+    border-radius: 28px;
+    @include media-tablet {
+      border-radius: 40px;
+    }
+  }
+
+  iframe {
+    height: inherit;
+    min-height: 360px;
+    width: 100%;
+  }
+}
+
+.media {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include media-tablet {
+    gap: 30px;
+  }
+
+  @include media-laptop-l {
+    gap: 30px;
+  }
+
+  iframe {
+    @include media-laptop-l {
+      flex: 1;
+    }
+  }
+}

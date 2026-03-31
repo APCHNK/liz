@@ -1,0 +1,96 @@
+.text-block {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  font-weight: 500;
+  gap: 20px;
+  width: 100%;
+
+  @include media-tablet {
+    gap: 30px;
+  }
+
+  @include media-laptop-l {
+    flex-direction: row;
+    gap: 30px;
+    justify-content: space-between;
+  }
+
+  .headline {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    @include media-laptop-l {
+        width: 320px;
+    }
+
+    span {
+      font-size: 16px;
+      font-weight: 700;
+      @include media-laptop-l {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .description {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    @include media-tablet {
+        gap: 20px;
+    }
+
+    @include media-laptop-l {
+        gap: 25px;
+        width: 737px;
+    }
+
+    p {
+      font-size: 14px;
+
+      @include media-tablet {
+        font-size: 16px;
+      }
+    }
+
+    img {
+      border-radius: 20px;
+      height: auto;
+      width: 100%;
+
+      @include media-tablet {
+        border-radius: 32px;
+      }
+    }
+  }
+}
+
+// Description text slider (Swiper)
+.description-slider {
+  @include media-laptop-l {
+    width: 737px;
+  }
+
+  .swiper-slide {
+    p {
+      font-size: 14px;
+
+      @include media-tablet {
+        font-size: 16px;
+      }
+    }
+
+    img {
+      border-radius: 20px;
+      height: auto;
+      width: 100%;
+
+      @include media-tablet {
+        border-radius: 32px;
+      }
+    }
+  }
+}

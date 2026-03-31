@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+  <meta charset="<?php bloginfo('charset'); ?>">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@mux/mux-player@3/dist/mux-player.mjs"></script>
+  <?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?> style="font-family: 'Manrope', sans-serif;">
+  <?php wp_body_open(); ?>
+  <div class="app-wrapper">
+    <header class="spacing-xs header">
+      <div class="columnar">
+        <div class="header-wrap">
+          <?php
+          $logo = get_field('header_logo', 'header-settings') ?: get_field('logo', 'option');
+          if ($logo) : ?>
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="logo">
+              <img src="<?php echo esc_url($logo['url']); ?>" alt="<?php echo esc_attr($logo['alt'] ?: get_bloginfo('name')); ?>">
+            </a>
+          <?php else : ?>
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="logo">
+              <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/logo.svg" alt="<?php bloginfo('name'); ?>">
+            </a>
+          <?php endif; ?>
+
+          <div class="toggle-menu">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/burger.svg" alt="menu" class="burger-icon">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/close.svg" alt="close" class="close-icon">
+          </div>
+
+          <nav class="menu">
+            <?php
+            wp_nav_menu(array(
+              'theme_location' => 'primary',
+              'container'      => false,
+              'items_wrap'     => '<ul>%3$s</ul>',
+              'walker'         => new Theme_Menu_Walker(),
+              'fallback_cb'    => false,
+            ));
+            ?>
+          </nav>
+        </div>
+      </div>
+    </header>

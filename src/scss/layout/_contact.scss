@@ -1,0 +1,98 @@
+.contact {
+  background-color: $color-dark;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  @include media-tablet {
+    flex-direction: row;
+  }
+
+  img {
+    height: 300px;
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+
+    @include media-tablet {
+      height: auto;
+      width: 320px;
+    }
+    @include media-laptop-l {
+      width: 435px;
+    }
+  }
+
+  .action {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 25px;
+    text-align: center;
+
+    @include media-tablet {
+      padding: 40px;
+      text-align: left;
+    }
+
+    @include media-laptop-l {
+      padding: 100px;
+    }
+
+    h2 {
+      color: $color-white;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+
+      @include media-tablet {
+        text-align: left;
+      }
+
+      p {
+        color: $color-white;
+        font-weight: 700;
+        @include media-tablet {
+          font-weight: 600;
+        }
+
+        a {
+          color: inherit;
+          text-decoration: underline;
+          transition: 0.3s;
+          &:hover {
+            color: $color-primary;
+          }
+        }
+      }
+    }
+
+    .btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 0 auto;
+      width: 216px;
+
+      @include media-tablet {
+        width: 100%;
+      }
+
+      @include media-laptop-l {
+        flex-direction: row;
+        gap: 25px;
+      }
+
+      button,
+      a {
+        display: flex;
+        flex: 1;
+      }
+    }
+  }
+}

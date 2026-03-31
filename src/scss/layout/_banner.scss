@@ -1,0 +1,100 @@
+.banner {
+  height: 568px;
+  position: relative;
+
+  @include media-tablet {
+    height: 447px;
+  }
+
+  @include media-laptop-l {
+    height: 840px;
+  }
+
+  .banner-img {
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    img {
+      height: 100%;
+      object-fit: contain;
+      left: 50%;
+      position: absolute;
+      transform: translateX(-50%);
+    }
+  }
+
+  .banner-wrap {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 0;
+    width: 100%;
+
+    @include media-tablet {
+      padding: 0;
+    }
+
+    .heading {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      justify-content: center;
+      width: 100%;
+
+      @include media-tablet {
+        align-items: baseline;
+        gap: 40px;
+        width: auto;
+      }
+
+      div {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        @include media-tablet {
+          align-items: baseline;
+        }
+
+        @include media-laptop-l {
+          gap: 10px;
+        }
+
+        span {
+          color: $color-white;
+          font-size: 14px;
+          font-weight: 800;
+          line-height: 24px;
+          text-transform: uppercase;
+        }
+        h1,
+        p {
+          color: $color-white;
+
+          @include media-tablet {
+            color: $color-dark;
+          }
+        }
+
+        p {
+          font-size: 16px;
+          font-weight: 500;
+
+          @include media-laptop-l {
+            font-size: 24px;
+          }
+        }
+      }
+    }
+
+    .btn-wrap {
+      min-width: 200px;
+    }
+  }
+}
