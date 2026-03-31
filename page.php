@@ -36,7 +36,7 @@ endif;
         ?>
 
         <?php if (has_post_thumbnail()) : ?>
-          <div class="img-wrap">
+          <div class="img-wrap wow fadeIn" data-wow-duration="1.2s">
             <?php the_post_thumbnail('full'); ?>
           </div>
         <?php endif; ?>
