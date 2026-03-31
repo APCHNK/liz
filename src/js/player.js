@@ -180,26 +180,50 @@ export function initPlayer() {
     el.addEventListener('click', () => skipTo(i));
   });
 
-  audio.addEventListener('timeupdate', () => {
+  // Smooth progress bar with requestAnimationFrame
+  let rafId = null;
+  let lastTimeUpdate = 0;
+
+  function updateProgress() {
+    if (!isPlaying) return;
+
     const current = audio.currentTime;
     const duration = audio.duration;
-    if (timeCurrentEl) timeCurrentEl.textContent = formatTime(current);
-    if (timeDurationEl) timeDurationEl.textContent = formatTime(duration);
 
-    const percentage = Math.round((current / duration) * 100);
-    if (animateTrack) {
-      animateTrack.style.transform = `translateX(${percentage}%)`;
-    }
-    if (rangeInput) {
-      rangeInput.value = current;
-      rangeInput.max = duration || 0;
+    if (duration && !isNaN(duration)) {
+      const percentage = (current / duration) * 100;
+      if (animateTrack) {
+        animateTrack.style.transform = `translateX(${percentage}%)`;
+      }
+      if (rangeInput) {
+        rangeInput.value = current;
+        rangeInput.max = duration;
+      }
+
+      // Throttle text updates to ~4x per second
+      const now = Date.now();
+      if (now - lastTimeUpdate > 250) {
+        if (timeCurrentEl) timeCurrentEl.textContent = formatTime(current);
+        if (timeDurationEl) timeDurationEl.textContent = formatTime(duration);
+
+        const activeSong = librarySongs[currentSongIndex];
+        if (activeSong) {
+          const dur = activeSong.querySelector('.duration');
+          if (dur) dur.textContent = formatTime(duration);
+        }
+        lastTimeUpdate = now;
+      }
     }
 
-    const activeSong = librarySongs[currentSongIndex];
-    if (activeSong) {
-      const dur = activeSong.querySelector('.duration');
-      if (dur) dur.textContent = formatTime(duration);
-    }
+    rafId = requestAnimationFrame(updateProgress);
+  }
+
+  // Start/stop RAF loop with play state
+  audio.addEventListener('play', () => {
+    if (!rafId) rafId = requestAnimationFrame(updateProgress);
+  });
+  audio.addEventListener('pause', () => {
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
   });
 
   audio.addEventListener('ended', () => {
