@@ -251,13 +251,6 @@
   overflow: hidden;
   border-radius: 16px;
   margin: 10px 0 15px;
-  cursor: pointer;
-  transition: height 0.2s ease;
-
-  &:hover {
-    height: 6px;
-  }
-
   .animate-track {
     background: rgba(255, 240, 240, 1);
     width: 100%;
@@ -268,7 +261,7 @@
     transform: translateX(0%);
     padding: 1rem;
     pointer-events: none;
-    transition: transform 0.15s linear;
+    transition: transform 0.8s linear;
   }
 
   input[type='range'] {
