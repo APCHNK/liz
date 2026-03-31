@@ -60,7 +60,7 @@ endif;
         </div>
       </li>
       <?php if ($index < count($filtered) - 1) : ?>
-        <hr>
+        <hr class="wow fadeIn" data-wow-delay="<?php echo (count($filtered) * 0.1 + 0.3); ?>s">
       <?php endif; ?>
     <?php endforeach; ?>
   </ul>

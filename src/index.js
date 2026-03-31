@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFaq();
 
   // Reveal on scroll
-  document.querySelectorAll('.page .img-wrap, .schedule ul hr').forEach(el => {
+  document.querySelectorAll('.page .img-wrap').forEach(el => {
     new IntersectionObserver(([e]) => {
       if (e.isIntersecting) { el.classList.add('is-visible'); }
     }, { threshold: 0.1 }).observe(el);
