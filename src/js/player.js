@@ -16,7 +16,6 @@ export function initPlayer() {
   const currentArtistEl = playerEl.querySelector('.current-artist');
   const timeCurrentEl = playerEl.querySelector('.time-current');
   const timeDurationEl = playerEl.querySelector('.time-duration');
-  const trackBar = playerEl.querySelector('.track');
   const animateTrack = playerEl.querySelector('.animate-track');
   const rangeInput = playerEl.querySelector('input[type="range"]');
   const playBtn = playerEl.querySelector('.play-btn');
@@ -31,37 +30,67 @@ export function initPlayer() {
     return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
   }
 
-  function updateUI() {
+  function animateCoverChange() {
+    if (!coverImg) return;
+    coverImg.classList.remove('is-changing');
+    void coverImg.offsetWidth;
+    coverImg.classList.add('is-changing');
+    coverImg.addEventListener('animationend', () => {
+      coverImg.classList.remove('is-changing');
+    }, { once: true });
+  }
+
+  function updateUI(trackChanged) {
     const song = songs[currentSongIndex];
     if (!song) return;
 
     if (coverImg) {
       const coverUrl = song.cover ? (song.cover.url || song.cover) : defaultCover;
+      if (trackChanged) animateCoverChange();
       coverImg.src = coverUrl || defaultCover;
     }
-    if (currentSongEl) currentSongEl.textContent = song.track_name || '';
-    if (currentArtistEl) currentArtistEl.textContent = song.artist || '';
 
-    // Update play/pause icons
-    if (playBtn) {
-      const playIcon = playBtn.dataset.playIcon;
-      const pauseIcon = playBtn.dataset.pauseIcon;
-      playBtn.src = isPlaying ? pauseIcon : playIcon;
-      playBtn.alt = isPlaying ? 'pause' : 'play';
+    if (currentSongEl) {
+      if (trackChanged) {
+        currentSongEl.style.opacity = '0';
+        setTimeout(() => {
+          currentSongEl.textContent = song.track_name || '';
+          currentSongEl.style.opacity = '1';
+        }, 150);
+      } else {
+        currentSongEl.textContent = song.track_name || '';
+      }
     }
 
-    // Update library highlight
+    if (currentArtistEl) {
+      if (trackChanged) {
+        currentArtistEl.style.opacity = '0';
+        setTimeout(() => {
+          currentArtistEl.textContent = song.artist || '';
+          currentArtistEl.style.opacity = '0.7';
+        }, 200);
+      } else {
+        currentArtistEl.textContent = song.artist || '';
+      }
+    }
+
+    // Play/pause icon
+    if (playBtn) {
+      playBtn.src = isPlaying ? playBtn.dataset.pauseIcon : playBtn.dataset.playIcon;
+      playBtn.alt = isPlaying ? 'pause' : 'play';
+      playBtn.classList.toggle('is-playing-anim', isPlaying);
+    }
+
+    // Library highlight
     librarySongs.forEach((el, i) => {
       el.classList.toggle('is-playing', i === currentSongIndex);
       const icon = el.querySelector('.song-play-icon');
       if (icon) {
-        const playIcon = icon.dataset.playIcon;
-        const pauseIcon = icon.dataset.pauseIcon;
-        icon.src = (isPlaying && i === currentSongIndex) ? pauseIcon : playIcon;
+        icon.src = (isPlaying && i === currentSongIndex) ? icon.dataset.pauseIcon : icon.dataset.playIcon;
       }
     });
 
-    // Update duration displays
+    // Duration displays
     librarySongs.forEach((el, i) => {
       const dur = el.querySelector('.duration');
       if (dur && i === currentSongIndex && audio.duration) {
@@ -83,23 +112,19 @@ export function initPlayer() {
     if (!audio.src || audio.src === window.location.href) {
       loadSong(currentSongIndex);
     }
-    audio.play().catch(() => { isPlaying = false; updateUI(); });
+    audio.play().catch(() => { isPlaying = false; updateUI(false); });
     isPlaying = true;
-    updateUI();
+    updateUI(false);
   }
 
   function pauseSong() {
     audio.pause();
     isPlaying = false;
-    updateUI();
+    updateUI(false);
   }
 
   function togglePlay() {
-    if (isPlaying) {
-      pauseSong();
-    } else {
-      playSong();
-    }
+    isPlaying ? pauseSong() : playSong();
   }
 
   function skipTo(index) {
@@ -117,13 +142,11 @@ export function initPlayer() {
     } else {
       playSong();
     }
-    updateUI();
+    updateUI(true);
   }
 
   // Events
-  if (playBtn) {
-    playBtn.addEventListener('click', togglePlay);
-  }
+  if (playBtn) playBtn.addEventListener('click', togglePlay);
 
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
@@ -135,7 +158,7 @@ export function initPlayer() {
           audio.removeEventListener('canplay', handler);
         });
       }
-      updateUI();
+      updateUI(true);
     });
   }
 
@@ -149,7 +172,7 @@ export function initPlayer() {
           audio.removeEventListener('canplay', handler);
         });
       }
-      updateUI();
+      updateUI(true);
     });
   }
 
@@ -172,7 +195,6 @@ export function initPlayer() {
       rangeInput.max = duration || 0;
     }
 
-    // Update duration in library
     const activeSong = librarySongs[currentSongIndex];
     if (activeSong) {
       const dur = activeSong.querySelector('.duration');
@@ -184,10 +206,10 @@ export function initPlayer() {
     currentSongIndex = (currentSongIndex + 1) % songs.length;
     loadSong(currentSongIndex);
     audio.addEventListener('canplay', function handler() {
-      audio.play().catch(() => { isPlaying = false; updateUI(); });
+      audio.play().catch(() => { isPlaying = false; updateUI(false); });
       audio.removeEventListener('canplay', handler);
     });
-    updateUI();
+    updateUI(true);
   });
 
   if (rangeInput) {
@@ -196,5 +218,5 @@ export function initPlayer() {
     });
   }
 
-  updateUI();
+  updateUI(false);
 }
