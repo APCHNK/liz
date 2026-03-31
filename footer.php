@@ -3,22 +3,12 @@
     <footer class="light-bg">
       <div class="columnar">
         <?php
-        $copyright = get_field('footer_copyright', 'footer-settings') ?: 'Boney M Liz Mitchell. All Right Reserved';
-        $email = get_field('footer_email', 'footer-settings') ?: 'book.boneym@gmail.com';
-        $instagram = get_field('footer_instagram', 'footer-settings');
-        $facebook = get_field('footer_facebook', 'footer-settings');
+        $copyright = get_field('footer_copyright', 'option') ?: 'Boney M Liz Mitchell. All Right Reserved';
+        $email = get_field('footer_email', 'option') ?: 'book.boneym@gmail.com';
         ?>
         <div class="footer-wrap">
           <span><?php echo date('Y'); ?> &copy; <?php echo esc_html($copyright); ?></span>
-          <div class="footer-links">
-            <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a>
-            <?php if ($instagram) : ?>
-              <a href="<?php echo esc_url($instagram); ?>" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <?php endif; ?>
-            <?php if ($facebook) : ?>
-              <a href="<?php echo esc_url($facebook); ?>" target="_blank" rel="noopener noreferrer">Facebook</a>
-            <?php endif; ?>
-          </div>
+          <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a>
         </div>
       </div>
     </footer>

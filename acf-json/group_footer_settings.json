@@ -15,18 +15,6 @@
             "name": "footer_email",
             "type": "email",
             "default_value": "book.boneym@gmail.com"
-        },
-        {
-            "key": "field_footer_instagram",
-            "label": "Instagram URL",
-            "name": "footer_instagram",
-            "type": "url"
-        },
-        {
-            "key": "field_footer_facebook",
-            "label": "Facebook URL",
-            "name": "footer_facebook",
-            "type": "url"
         }
     ],
     "location": [
@@ -44,5 +32,5 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "active": true,
-    "modified": 1711900000
+    "modified": 1711900002
 }

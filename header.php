@@ -18,7 +18,7 @@
       <div class="columnar">
         <div class="header-wrap">
           <?php
-          $logo = get_field('header_logo', 'header-settings') ?: get_field('logo', 'option');
+          $logo = get_field('header_logo', 'option') ?: get_field('logo', 'option');
           if ($logo) : ?>
             <a href="<?php echo esc_url(home_url('/')); ?>" class="logo">
               <img src="<?php echo esc_url($logo['url']); ?>" alt="<?php echo esc_attr($logo['alt'] ?: get_bloginfo('name')); ?>">
