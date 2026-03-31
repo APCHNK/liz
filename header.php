@@ -36,13 +36,28 @@
 
           <nav class="menu">
             <?php
-            wp_nav_menu(array(
-              'theme_location' => 'primary',
+            // Try 'primary' location first, fallback to 'header' (from old theme)
+            $menu_args = array(
               'container'      => false,
               'items_wrap'     => '<ul>%3$s</ul>',
               'walker'         => new Theme_Menu_Walker(),
               'fallback_cb'    => false,
-            ));
+            );
+
+            $locations = get_nav_menu_locations();
+            if (!empty($locations['primary'])) {
+              $menu_args['theme_location'] = 'primary';
+            } elseif (!empty($locations['header'])) {
+              $menu_args['theme_location'] = 'header';
+            } else {
+              // Fallback: use first available menu
+              $menus = wp_get_nav_menus();
+              if (!empty($menus)) {
+                $menu_args['menu'] = $menus[0]->term_id;
+              }
+            }
+
+            wp_nav_menu($menu_args);
             ?>
           </nav>
         </div>
