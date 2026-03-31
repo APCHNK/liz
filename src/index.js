@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initTextSliders();
   initFaq();
 
-  // Featured image reveal
-  document.querySelectorAll('.page .img-wrap').forEach(el => {
+  // Reveal on scroll
+  document.querySelectorAll('.page .img-wrap, .schedule ul hr').forEach(el => {
     new IntersectionObserver(([e]) => {
       if (e.isIntersecting) { el.classList.add('is-visible'); }
     }, { threshold: 0.1 }).observe(el);
