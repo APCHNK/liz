@@ -6,6 +6,8 @@ $image = $contact['image'] ?? null;
 $title = $contact['title'] ?? '';
 $text = $contact['text'] ?? '';
 $book_button = $contact['book_button'] ?? null;
+$use_modal = $contact['use_modal'] ?? true;
+$email = $contact['email'] ?? 'book.boneym@gmail.com';
 
 if (!$title && !$text) return;
 ?>
@@ -24,11 +26,17 @@ if (!$title && !$text) return;
         <?php endif; ?>
         <div class="btns">
           <?php if (!empty($book_button['title'])) : ?>
-            <button class="button button--primary" data-open-modal>
-              <?php echo esc_html($book_button['title']); ?>
-            </button>
+            <?php if ($use_modal) : ?>
+              <button class="button button--primary" data-open-modal>
+                <?php echo esc_html($book_button['title']); ?>
+              </button>
+            <?php else : ?>
+              <a href="<?php echo esc_url($book_button['url'] ?? '#'); ?>" class="button button--primary" <?php echo !empty($book_button['target']) ? 'target="' . esc_attr($book_button['target']) . '"' : ''; ?>>
+                <?php echo esc_html($book_button['title']); ?>
+              </a>
+            <?php endif; ?>
           <?php endif; ?>
-          <button class="button button--outline" onclick="window.location.href='mailto:book.boneym@gmail.com'">Email</button>
+          <a href="mailto:<?php echo esc_attr($email); ?>" class="button button--outline">Email</a>
         </div>
       </div>
     </div>

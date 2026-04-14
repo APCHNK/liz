@@ -129,6 +129,37 @@
                     "delay": 0
                 },
                 {
+                    "key": "field_contact_use_modal",
+                    "label": "Use Modal",
+                    "name": "use_modal",
+                    "type": "true_false",
+                    "instructions": "Open booking modal on button click",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 1,
+                    "ui": 1
+                },
+                {
+                    "key": "field_contact_email",
+                    "label": "Email Button",
+                    "name": "email",
+                    "type": "email",
+                    "instructions": "Email for the Email button",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "book.boneym@gmail.com"
+                },
+                {
                     "key": "field_66e86af71cb69",
                     "label": "Book Button",
                     "name": "book_button",
@@ -143,64 +174,8 @@
                     },
                     "show_in_graphql": 1,
                     "return_format": "array"
-                },
-                {
-                    "key": "field_66e86b301cb6a",
-                    "label": "Whatsapp button",
-                    "name": "whatsapp_button",
-                    "type": "link",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "show_in_graphql": 1,
-                    "return_format": "array"
                 }
             ]
-        },
-        {
-            "key": "field_68ed5699d7267",
-            "label": "revalidate_secret_token",
-            "name": "revalidate_secret_token",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "show_in_graphql": 1,
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
-            "key": "field_68ed56a2d7268",
-            "label": "frontend_url",
-            "name": "frontend_url",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "show_in_graphql": 1,
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
         }
     ],
     "location": [
@@ -225,5 +200,5 @@
     "graphql_field_name": "themeOptions",
     "map_graphql_types_from_location_rules": 0,
     "graphql_types": "",
-    "modified": 1760384667
+    "modified": 1774980000
 }
