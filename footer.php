@@ -16,9 +16,11 @@
 
   <?php get_template_part('template-parts/modal'); ?>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-  <script>new WOW({offset: 80, mobile: true}).init();</script>
+  <?php if (is_front_page()) : ?>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" defer></script>
+    <script>document.addEventListener('DOMContentLoaded',function(){if(typeof WOW!=='undefined')new WOW({offset:80,mobile:true}).init();});</script>
+  <?php endif; ?>
   <?php wp_footer(); ?>
 </body>
 </html>

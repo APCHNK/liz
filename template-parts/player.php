@@ -42,15 +42,16 @@ $first_cover = !empty($tracks_json[0]['cover']['url']) ? $tracks_json[0]['cover'
           <div class="animate-track"></div>
         </div>
         <div class="controls">
-          <img src="<?php echo esc_url($prev_icon); ?>" alt="prev" class="skip skip-back">
+          <img src="<?php echo esc_url($prev_icon); ?>" alt="prev" class="skip skip-back" width="20" height="20">
           <img
             src="<?php echo esc_url($play_icon); ?>"
             alt="play"
             class="play play-btn"
             data-play-icon="<?php echo esc_url($play_icon); ?>"
             data-pause-icon="<?php echo esc_url($pause_icon); ?>"
+            width="45" height="45"
           >
-          <img src="<?php echo esc_url($next_icon); ?>" alt="next" class="skip skip-forward">
+          <img src="<?php echo esc_url($next_icon); ?>" alt="next" class="skip skip-forward" width="20" height="20">
         </div>
       </div>
     </div>

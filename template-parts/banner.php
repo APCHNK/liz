@@ -11,9 +11,9 @@ $use_modal = $banner['use_modal'] ?? true;
 if (!$title) return;
 ?>
 <div class="banner banner-bg">
-  <div class="banner-img wow fadeIn" data-wow-duration="1.2s">
+  <div class="banner-img">
     <?php if ($image) : ?>
-      <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['title'] ?? ''); ?>">
+      <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['title'] ?? ''); ?>" width="<?php echo esc_attr($image['width'] ?? ''); ?>" height="<?php echo esc_attr($image['height'] ?? ''); ?>" fetchpriority="high">
     <?php endif; ?>
   </div>
   <div class="columnar vertical">

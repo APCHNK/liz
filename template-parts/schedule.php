@@ -41,7 +41,7 @@ endif;
     <?php foreach ($filtered as $index => $item) : ?>
       <li class="wow fadeInUp" data-wow-delay="<?php echo ($index * 0.1); ?>s">
         <?php if (!empty($item['image'])) : ?>
-          <img src="<?php echo esc_url($item['image']['url']); ?>" alt="<?php echo esc_attr($item['image']['alt'] ?? ''); ?>">
+          <img src="<?php echo esc_url($item['image']['url']); ?>" alt="<?php echo esc_attr($item['image']['alt'] ?? ''); ?>" width="140" height="140" loading="lazy">
         <?php endif; ?>
         <div class="info">
           <div>
