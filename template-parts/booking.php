@@ -3,7 +3,7 @@ $mux_id = get_sub_field('mux_playback_id');
 if (!$mux_id) return;
 ?>
 <div class="booking-hero">
-  <div class="booking-hero__video">
+  <div class="booking-hero__video wow fadeInUp" data-wow-duration="1s">
     <mux-player
       playback-id="<?php echo esc_attr($mux_id); ?>"
       autoplay muted loop
