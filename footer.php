@@ -17,12 +17,18 @@
   <?php get_template_part('template-parts/modal'); ?>
 
   <?php if (is_front_page()) : ?>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
     <script src="<?php echo get_template_directory_uri(); ?>/assets/js/wow.min.js" defer></script>
     <script>document.addEventListener('DOMContentLoaded',function(){
       if(typeof WOW==='undefined')return;
       new WOW({offset:80,mobile:true}).init();
       if(window.innerWidth>=1024){new WOW({boxClass:'wow-desktop',offset:80}).init();}
+      // Lazy-load Swiper only if slider exists
+      if(document.querySelector('.description-swiper')){
+        var s=document.createElement('script');
+        s.src='https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+        s.onload=function(){if(typeof initTextSliders==='function')initTextSliders();};
+        document.body.appendChild(s);
+      }
     });</script>
   <?php endif; ?>
   <?php wp_footer(); ?>

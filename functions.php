@@ -124,12 +124,16 @@ add_action('send_headers', function () {
     header('X-Frame-Options: SAMEORIGIN');
 });
 
+// Add cache headers to theme static assets
 add_filter('style_loader_tag', function ($tag, $handle) {
-    if (in_array($handle, ['theme-main'])) {
-        return str_replace(" media='all'", " media='all' crossorigin", $tag);
-    }
     return $tag;
 }, 10, 2);
+
+// Page caching for non-logged-in users
+add_action('template_redirect', function () {
+    if (is_user_logged_in() || is_admin()) return;
+    header('Cache-Control: public, max-age=300, s-maxage=3600');
+});
 
 // -----------------------------------------------------------------------------
 // Google Analytics / GTM

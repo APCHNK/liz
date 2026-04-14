@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLazyIframes();
   initBookingVideo();
   initTextSliders();
+  window.initTextSliders = initTextSliders;
   initFaq();
 
   // Reveal on scroll
