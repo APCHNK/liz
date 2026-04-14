@@ -18,7 +18,7 @@
 
   <?php if (is_front_page()) : ?>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" defer></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/assets/js/wow.min.js" defer></script>
     <script>document.addEventListener('DOMContentLoaded',function(){
       if(typeof WOW==='undefined')return;
       new WOW({offset:80,mobile:true}).init();
