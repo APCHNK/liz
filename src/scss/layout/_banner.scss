@@ -1,6 +1,7 @@
 .banner {
   height: 568px;
   position: relative;
+  overflow: hidden;
 
   @include media-tablet {
     height: 447px;

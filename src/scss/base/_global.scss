@@ -1,7 +1,11 @@
 main {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 40px;
+
+    @include media-tablet {
+        gap: 60px;
+    }
 
     @include media-laptop {
         gap: 80px;
