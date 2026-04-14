@@ -104,6 +104,14 @@
       display: block;
       --controls: none;
       --media-object-fit: cover;
+      --media-object-position: center;
+
+      // Safari fix
+      video {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }

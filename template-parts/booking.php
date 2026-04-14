@@ -19,7 +19,7 @@ if (!$mux_id) return;
       s.type = 'module';
       s.src = 'https://cdn.jsdelivr.net/npm/@mux/mux-player@3/dist/mux-player.mjs';
       s.onload = function(){
-        el.innerHTML = '<mux-player playback-id="'+id+'" autoplay muted loop stream-type="on-demand" default-hidden-captions playback-rates="" no-hot-keys preload="auto" prefer-playback="mse" min-resolution="720p" max-resolution="1080p"></mux-player>';
+        el.innerHTML = '<mux-player playback-id="'+id+'" autoplay muted loop playsinline stream-type="on-demand" default-hidden-captions playback-rates="" no-hot-keys preload="auto" prefer-playback="mse" min-resolution="720p" max-resolution="1080p" style="width:100%;height:100%;display:block;--controls:none;--media-object-fit:cover;--media-object-position:center;"></mux-player>';
       };
       document.head.appendChild(s);
     }
