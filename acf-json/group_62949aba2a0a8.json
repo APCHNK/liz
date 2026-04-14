@@ -104,6 +104,22 @@
                     "maxlength": ""
                 },
                 {
+                    "key": "field_banner_use_modal",
+                    "label": "Use Modal",
+                    "name": "use_modal",
+                    "type": "true_false",
+                    "instructions": "Open booking modal on button click",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 1,
+                    "ui": 1
+                },
+                {
                     "key": "field_66cb3463cb7f9",
                     "label": "Button",
                     "name": "button",

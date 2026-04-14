@@ -6,6 +6,7 @@ $image = $banner['image'] ?? null;
 $title = $banner['title'] ?? '';
 $subtitle = $banner['subtitle'] ?? '';
 $button = $banner['button'] ?? null;
+$use_modal = $banner['use_modal'] ?? true;
 
 if (!$title) return;
 ?>
@@ -28,9 +29,15 @@ if (!$title) return;
         </div>
         <?php if (!empty($button['link']['title'])) : ?>
           <div class="btn-wrap wow fadeInUp" data-wow-delay="0.7s">
-            <button class="button button--primary" data-open-modal>
-              <?php echo esc_html($button['link']['title']); ?>
-            </button>
+            <?php if ($use_modal) : ?>
+              <button class="button button--primary" data-open-modal>
+                <?php echo esc_html($button['link']['title']); ?>
+              </button>
+            <?php else : ?>
+              <a href="<?php echo esc_url($button['link']['url'] ?? '#'); ?>" class="button button--primary" <?php echo !empty($button['link']['target']) ? 'target="' . esc_attr($button['link']['target']) . '"' : ''; ?>>
+                <?php echo esc_html($button['link']['title']); ?>
+              </a>
+            <?php endif; ?>
           </div>
         <?php endif; ?>
       </div>
