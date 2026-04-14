@@ -116,12 +116,20 @@ add_action('wp_enqueue_scripts', function () {
 });
 
 // -----------------------------------------------------------------------------
-// Cache headers for static assets
+// Cache and security headers
 // -----------------------------------------------------------------------------
 add_action('send_headers', function () {
     if (is_admin()) return;
     header('X-Content-Type-Options: nosniff');
+    header('X-Frame-Options: SAMEORIGIN');
 });
+
+add_filter('style_loader_tag', function ($tag, $handle) {
+    if (in_array($handle, ['theme-main'])) {
+        return str_replace(" media='all'", " media='all' crossorigin", $tag);
+    }
+    return $tag;
+}, 10, 2);
 
 // -----------------------------------------------------------------------------
 // Google Analytics / GTM

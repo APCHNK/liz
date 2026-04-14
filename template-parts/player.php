@@ -69,6 +69,7 @@ $first_cover = !empty($tracks_json[0]['cover']['url']) ? $tracks_json[0]['cover'
               class="play song-play-icon"
               data-play-icon="<?php echo esc_url($play_icon); ?>"
               data-pause-icon="<?php echo esc_url($pause_icon); ?>"
+              width="20" height="20"
             >
             <div>
               <span class="song-name"><?php echo esc_html($song['track_name']); ?></span>

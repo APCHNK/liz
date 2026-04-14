@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print" onload="this.media='all'">
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@mux/mux-player@3/dist/mux-player.mjs" async></script>
   <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?> style="font-family: 'Manrope', sans-serif;">
@@ -30,8 +31,8 @@
           <?php endif; ?>
 
           <div class="toggle-menu">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/burger.svg" alt="menu" class="burger-icon">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/close.svg" alt="close" class="close-icon">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/burger.svg" alt="menu" class="burger-icon" width="32" height="32">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/icons/close.svg" alt="close" class="close-icon" width="32" height="32">
           </div>
 
           <nav class="menu">
