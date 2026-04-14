@@ -8,7 +8,7 @@ if ((!$headline || (!$headline['title'] && !$headline['subtitle'])) && !$text_ar
 $has_slider = $slides && is_array($slides) && count($slides) > 1;
 ?>
 <div class="text-block">
-  <div class="headline wow fadeInUp">
+  <div class="headline load-fadeInUp">
     <?php if (!empty($headline['title'])) : ?>
       <h2><?php echo esc_html($headline['title']); ?></h2>
     <?php endif; ?>
@@ -18,7 +18,7 @@ $has_slider = $slides && is_array($slides) && count($slides) > 1;
   </div>
 
   <?php if ($has_slider) : ?>
-    <div class="description-slider wow fadeInUp" data-wow-delay="0.2s">
+    <div class="description-slider load-fadeInUp load-delay-1">
       <div class="swiper description-swiper">
         <div class="swiper-wrapper">
           <?php foreach ($slides as $slide) : ?>
@@ -30,7 +30,7 @@ $has_slider = $slides && is_array($slides) && count($slides) > 1;
       </div>
     </div>
   <?php elseif ($text_area) : ?>
-    <div class="description wow fadeInUp" data-wow-delay="0.2s">
+    <div class="description load-fadeInUp load-delay-1">
       <?php echo wp_kses_post($text_area); ?>
     </div>
   <?php endif; ?>

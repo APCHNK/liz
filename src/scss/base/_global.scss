@@ -8,6 +8,30 @@ main {
     }
 }
 
+// Load animations (play on page load, not scroll)
+@keyframes loadFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.load-fadeInUp {
+  animation: loadFadeInUp 0.8s ease both;
+}
+
+.load-delay-1 {
+  animation-delay: 0.2s;
+}
+
+.load-delay-2 {
+  animation-delay: 0.4s;
+}
+
 .light-bg {
     background: $color-light;
 }
