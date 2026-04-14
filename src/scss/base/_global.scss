@@ -21,15 +21,21 @@ main {
 }
 
 .load-fadeInUp {
-  animation: loadFadeInUp 0.8s ease both;
+  @include media-laptop {
+    animation: loadFadeInUp 0.8s ease both;
+  }
 }
 
 .load-delay-1 {
-  animation-delay: 0.2s;
+  @include media-laptop {
+    animation-delay: 0.2s;
+  }
 }
 
 .load-delay-2 {
-  animation-delay: 0.4s;
+  @include media-laptop {
+    animation-delay: 0.4s;
+  }
 }
 
 .light-bg {

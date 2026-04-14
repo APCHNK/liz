@@ -21,14 +21,14 @@ if (!$title) return;
       <div class="heading">
         <div>
           <?php if ($title) : ?>
-            <h1 class="wow fadeInUp" data-wow-delay="0.3s"><?php echo esc_html($title); ?></h1>
+            <h1 class="wow-desktop fadeInUp" data-wow-delay="0.3s"><?php echo esc_html($title); ?></h1>
           <?php endif; ?>
           <?php if ($subtitle) : ?>
-            <p class="wow fadeInUp" data-wow-delay="0.5s"><?php echo esc_html($subtitle); ?></p>
+            <p class="wow-desktop fadeInUp" data-wow-delay="0.5s"><?php echo esc_html($subtitle); ?></p>
           <?php endif; ?>
         </div>
         <?php if (!empty($button['link']['title'])) : ?>
-          <div class="btn-wrap wow fadeInUp" data-wow-delay="0.7s">
+          <div class="btn-wrap wow-desktop fadeInUp" data-wow-delay="0.7s">
             <?php if ($use_modal) : ?>
               <button class="button button--primary" data-open-modal>
                 <?php echo esc_html($button['link']['title']); ?>

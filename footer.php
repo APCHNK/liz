@@ -19,7 +19,11 @@
   <?php if (is_front_page()) : ?>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" defer></script>
-    <script>document.addEventListener('DOMContentLoaded',function(){if(typeof WOW!=='undefined')new WOW({offset:80,mobile:true}).init();});</script>
+    <script>document.addEventListener('DOMContentLoaded',function(){
+      if(typeof WOW==='undefined')return;
+      new WOW({offset:80,mobile:true}).init();
+      if(window.innerWidth>=1024){new WOW({boxClass:'wow-desktop',offset:80}).init();}
+    });</script>
   <?php endif; ?>
   <?php wp_footer(); ?>
 </body>
