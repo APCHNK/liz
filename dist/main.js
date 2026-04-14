@@ -1,1 +1,172 @@
-(()=>{"use strict";function e(){document.querySelector(".description-swiper")&&"undefined"!=typeof Swiper&&new Swiper(".description-swiper",{loop:!0,speed:600,autoHeight:!0,grabCursor:!0})}document.addEventListener("DOMContentLoaded",()=>{!function(){const e=document.querySelector(".toggle-menu");e&&(e.addEventListener("click",()=>{const e=document.querySelector("header"),t=document.querySelector(".menu");t.classList.contains("open")?(t.classList.remove("open"),e.classList.remove("open-menu"),document.body.classList.remove("menu-open")):(t.classList.add("open"),e.classList.add("open-menu"),document.body.classList.add("menu-open"))}),document.querySelectorAll(".menu .has-submenu > a .submenu-indicator").forEach(e=>{e.addEventListener("click",e=>{if(window.innerWidth<1024){e.preventDefault(),e.stopPropagation();const t=e.currentTarget.closest("li");t&&t.classList.toggle("expanded")}})}))}(),function(){const e=document.querySelector(".player-wrap");if(!e)return;const t=document.getElementById("audio-player");if(!t)return;const n=JSON.parse(e.dataset.tracks||"[]");if(0===n.length)return;let r=0,o=!1;const a=e.querySelector(".cover"),s=e.querySelector(".current-song"),c=e.querySelector(".current-artist"),i=e.querySelector(".time-current"),l=e.querySelector(".time-duration"),u=e.querySelector(".animate-track"),d=e.querySelector('input[type="range"]'),y=e.querySelector(".play-btn"),m=e.querySelector(".skip-back"),p=e.querySelector(".skip-forward"),f=e.querySelectorAll(".library-song"),v=e.dataset.defaultCover||"";function q(e){return isNaN(e)?"0:00":Math.floor(e/60)+":"+("0"+Math.floor(e%60)).slice(-2)}function h(e){const i=n[r];if(i){if(a){const t=i.cover?i.cover.url||i.cover:v;e&&a&&(a.classList.remove("is-changing"),a.offsetWidth,a.classList.add("is-changing"),a.addEventListener("animationend",()=>{a.classList.remove("is-changing")},{once:!0})),a.src=t||v}s&&(e?(s.style.opacity="0",setTimeout(()=>{s.textContent=i.track_name||"",s.style.opacity="1"},150)):s.textContent=i.track_name||""),c&&(e?(c.style.opacity="0",setTimeout(()=>{c.textContent=i.artist||"",c.style.opacity="0.7"},200)):c.textContent=i.artist||""),y&&(y.src=o?y.dataset.pauseIcon:y.dataset.playIcon,y.alt=o?"pause":"play",y.classList.toggle("is-playing-anim",o)),f.forEach((e,t)=>{e.classList.toggle("is-playing",t===r);const n=e.querySelector(".song-play-icon");n&&(n.src=o&&t===r?n.dataset.pauseIcon:n.dataset.playIcon)}),f.forEach((e,n)=>{const o=e.querySelector(".duration");o&&n===r&&t.duration?o.textContent=q(t.duration):o&&n!==r&&(o.textContent="--:--")})}}function S(e){const r=n[e];r&&(t.src=r.audio,t.load())}function g(){t.src&&t.src!==window.location.href||S(r),t.play().catch(()=>{o=!1,h(!1)}),o=!0,h(!1)}function L(){o?(t.pause(),o=!1,h(!1)):g()}y&&y.addEventListener("click",L),m&&m.addEventListener("click",()=>{r=(r-1+n.length)%n.length,S(r),o&&t.addEventListener("canplay",function e(){t.play().catch(()=>{}),t.removeEventListener("canplay",e)}),h(!0)}),p&&p.addEventListener("click",()=>{r=(r+1)%n.length,S(r),o&&t.addEventListener("canplay",function e(){t.play().catch(()=>{}),t.removeEventListener("canplay",e)}),h(!0)}),f.forEach((e,n)=>{e.addEventListener("click",()=>{var e;(e=n)!==r?(r=e,S(r),o?t.addEventListener("canplay",function e(){t.play().catch(()=>{}),t.removeEventListener("canplay",e)}):g(),h(!0)):L()})});let E=null,w=0,b=0,k=0;function x(){const e=t.duration;if(e&&!isNaN(e)&&o){const t=(performance.now()-b)/1e3,n=Math.min(w+t,e),o=n/e*100;u&&(u.style.transform=`translateX(${o}%)`),d&&(d.value=n,d.max=e);const a=Date.now();if(a-k>250){i&&(i.textContent=q(n)),l&&(l.textContent=q(e));const t=f[r];if(t){const n=t.querySelector(".duration");n&&(n.textContent=q(e))}k=a}}E=requestAnimationFrame(x)}t.addEventListener("timeupdate",()=>{w=t.currentTime,b=performance.now()}),t.addEventListener("play",()=>{w=t.currentTime,b=performance.now(),E||(E=requestAnimationFrame(x))}),t.addEventListener("pause",()=>{E&&(cancelAnimationFrame(E),E=null)}),t.addEventListener("seeked",()=>{w=t.currentTime,b=performance.now()}),t.addEventListener("ended",()=>{r=(r+1)%n.length,S(r),t.addEventListener("canplay",function e(){t.play().catch(()=>{o=!1,h(!1)}),t.removeEventListener("canplay",e)}),h(!0)}),d&&d.addEventListener("input",e=>{t.currentTime=e.target.value}),h(!1)}(),function(){const e=document.querySelector(".modal-wrap");if(!e)return;const t=e.querySelector(".mask"),n=e.querySelector(".close"),r=e.querySelector("form"),o=e.querySelector(".success-message"),a=e.querySelector(".form-content"),s=e.querySelector(".modal-title");function c(){e.classList.remove("active"),document.body.style.overflow="auto",o&&(o.style.display="none"),a&&(a.style.display="block"),s&&(s.textContent="Request")}document.querySelectorAll("[data-open-modal]").forEach(t=>{t.addEventListener("click",t=>{t.preventDefault(),e.classList.add("active"),document.body.style.overflow="hidden"})}),t&&t.addEventListener("click",c),n&&n.addEventListener("click",c);const i=e.querySelector(".success-message .btn button");function l(e,t){const n=e.closest(".field-wrap");if(n){let e=n.querySelector(".error-msg");e||(e=document.createElement("span"),e.className="error-msg",n.appendChild(e)),e.textContent=t}}i&&i.addEventListener("click",c),r&&r.addEventListener("submit",e=>{e.preventDefault();let t=!0;const n={city:r.querySelector('[name="city"]'),name:r.querySelector('[name="person-name"]'),person:r.querySelector('[name="person-private"]'),email:r.querySelector('[name="email"]'),phone:r.querySelector('[name="phone"]')};if(r.querySelectorAll(".error-msg").forEach(e=>e.textContent=""),n.city&&!n.city.value.trim()&&(l(n.city,"*Enter your city"),t=!1),n.name&&!n.name.value.trim()&&(l(n.name,"*Enter your name"),t=!1),n.person&&!n.person.value.trim()&&(l(n.person,"*Enter your role"),t=!1),n.email&&(n.email.value.trim()?/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(n.email.value)||(l(n.email,"*Enter a valid email"),t=!1):(l(n.email,"*Enter your email"),t=!1)),n.phone&&!n.phone.value.trim()&&(l(n.phone,"*Enter your number"),t=!1),!t)return;const c=r.querySelector('[type="submit"]'),i=r.querySelector(".spinner");c&&(c.disabled=!0),c&&(c.value="Sending..."),i&&(i.style.display="flex");const u=new FormData(r);fetch(r.action,{method:"POST",body:u}).then(e=>e.json()).then(e=>{if(c&&(c.disabled=!1),c&&(c.value="Send Request"),i&&(i.style.display="none"),"mail_sent"===e.status)a&&(a.style.display="none"),o&&(o.style.display="flex"),s&&(s.textContent="Boney M. feat Liz Mitchell"),r.reset();else{const e=r.querySelector(".form-error");e&&(e.style.display="block")}}).catch(()=>{c&&(c.disabled=!1),c&&(c.value="Send Request"),i&&(i.style.display="none");const e=r.querySelector(".form-error");e&&(e.style.display="block")})})}(),function(){const e=document.querySelectorAll("iframe[data-src]");if(0===e.length)return;const t=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting){const n=e.target;n.src=n.dataset.src,t.unobserve(n)}})},{rootMargin:"100px"});e.forEach(e=>t.observe(e))}(),function(){const e=document.querySelector(".booking-hero");if(!e)return;const t=e.querySelector(".booking-hero__video");if(!t)return;let n=0,r=0;requestAnimationFrame(function e(){const o=t.getBoundingClientRect(),a=.9*window.innerHeight,s=o.top;r=s>=a?0:s<=100?1:1-(s-100)/(a-100),n+=.15*(r-n);const c=70+45*n,i=40-30*n;t.style.width=`${c}%`,t.style.borderRadius=`${i}px`,requestAnimationFrame(e)})}(),e(),window.initTextSliders=e,function(){const e=document.querySelectorAll(".faq__item");if(!e.length)return;const t=e[0],n=t.querySelector(".faq__answer");t.classList.add("active"),n.style.maxHeight=n.scrollHeight+"px",e.forEach(t=>{const n=t.querySelector(".faq__question"),r=t.querySelector(".faq__answer");n.addEventListener("click",()=>{const n=t.classList.contains("active");e.forEach(e=>{const t=e.querySelector(".faq__answer");e.classList.remove("active"),t.style.maxHeight=null}),n||(t.classList.add("active"),r.style.maxHeight=r.scrollHeight+"px")})})}(),document.querySelectorAll(".page .img-wrap").forEach(e=>{new IntersectionObserver(([t])=>{t.isIntersecting&&e.classList.add("is-visible")},{threshold:.1}).observe(e)})})})();
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/scss/main.scss"
+/*!****************************!*\
+  !*** ./src/scss/main.scss ***!
+  \****************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("{__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://twentytwentyfive/./src/scss/main.scss?\n}");
+
+/***/ },
+
+/***/ "./src/index.js"
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scss/main.scss */ \"./src/scss/main.scss\");\n/* harmony import */ var _js_burger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./js/burger */ \"./src/js/burger.js\");\n/* harmony import */ var _js_player__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/player */ \"./src/js/player.js\");\n/* harmony import */ var _js_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/modal */ \"./src/js/modal.js\");\n/* harmony import */ var _js_iframe_lazy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/iframe-lazy */ \"./src/js/iframe-lazy.js\");\n/* harmony import */ var _js_booking_video__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/booking-video */ \"./src/js/booking-video.js\");\n/* harmony import */ var _js_text_slider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./js/text-slider */ \"./src/js/text-slider.js\");\n/* harmony import */ var _js_faq__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./js/faq */ \"./src/js/faq.js\");\n\n\n\n\n\n\n\n\n\ndocument.addEventListener('DOMContentLoaded', () => {\n  (0,_js_burger__WEBPACK_IMPORTED_MODULE_1__.initBurger)();\n  (0,_js_player__WEBPACK_IMPORTED_MODULE_2__.initPlayer)();\n  (0,_js_modal__WEBPACK_IMPORTED_MODULE_3__.initModal)();\n  (0,_js_iframe_lazy__WEBPACK_IMPORTED_MODULE_4__.initLazyIframes)();\n  (0,_js_booking_video__WEBPACK_IMPORTED_MODULE_5__.initBookingVideo)();\n  (0,_js_text_slider__WEBPACK_IMPORTED_MODULE_6__.initTextSliders)();\n  window.initTextSliders = _js_text_slider__WEBPACK_IMPORTED_MODULE_6__.initTextSliders;\n  (0,_js_faq__WEBPACK_IMPORTED_MODULE_7__.initFaq)();\n\n  // Reveal on scroll\n  document.querySelectorAll('.page .img-wrap').forEach(el => {\n    new IntersectionObserver(([e]) => {\n      if (e.isIntersecting) { el.classList.add('is-visible'); }\n    }, { threshold: 0.1 }).observe(el);\n  });\n});\n\n\n//# sourceURL=webpack://twentytwentyfive/./src/index.js?\n}");
+
+/***/ },
+
+/***/ "./src/js/booking-video.js"
+/*!*********************************!*\
+  !*** ./src/js/booking-video.js ***!
+  \*********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   initBookingVideo: () => (/* binding */ initBookingVideo)\n/* harmony export */ });\nfunction initBookingVideo() {\r\n  const section = document.querySelector('.booking-hero');\r\n  if (!section) return;\r\n\r\n  const video = section.querySelector('.booking-hero__video');\r\n  if (!video) return;\r\n\r\n  let progress = 0;\r\n  let targetProgress = 0;\r\n\r\n  function update() {\r\n    const videoRect = video.getBoundingClientRect();\r\n    const startPoint = window.innerHeight * 0.9;\r\n    const endPoint = 100;\r\n    const currentTop = videoRect.top;\r\n\r\n    if (currentTop >= startPoint) {\r\n      targetProgress = 0;\r\n    } else if (currentTop <= endPoint) {\r\n      targetProgress = 1;\r\n    } else {\r\n      targetProgress = 1 - (currentTop - endPoint) / (startPoint - endPoint);\r\n    }\r\n\r\n    progress += (targetProgress - progress) * 0.15;\r\n\r\n    const width = 70 + (progress * 45);\r\n    const borderRadius = 40 - (progress * 30);\r\n\r\n    video.style.width = `${width}%`;\r\n    video.style.borderRadius = `${borderRadius}px`;\r\n\r\n    requestAnimationFrame(update);\r\n  }\r\n\r\n  requestAnimationFrame(update);\r\n}\r\n\n\n//# sourceURL=webpack://twentytwentyfive/./src/js/booking-video.js?\n}");
+
+/***/ },
+
+/***/ "./src/js/burger.js"
+/*!**************************!*\
+  !*** ./src/js/burger.js ***!
+  \**************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   initBurger: () => (/* binding */ initBurger)\n/* harmony export */ });\nfunction initBurger() {\n  const burger = document.querySelector('.toggle-menu');\n  if (!burger) return;\n\n  burger.addEventListener('click', () => {\n    const header = document.querySelector('header');\n    const menu = document.querySelector('.menu');\n    const isOpen = menu.classList.contains('open');\n\n    if (isOpen) {\n      menu.classList.remove('open');\n      header.classList.remove('open-menu');\n      document.body.classList.remove('menu-open');\n    } else {\n      menu.classList.add('open');\n      header.classList.add('open-menu');\n      document.body.classList.add('menu-open');\n    }\n  });\n\n  // Submenu toggle on mobile\n  const submenuIndicators = document.querySelectorAll('.menu .has-submenu > a .submenu-indicator');\n  submenuIndicators.forEach((indicator) => {\n    indicator.addEventListener('click', (e) => {\n      if (window.innerWidth < 1024) {\n        e.preventDefault();\n        e.stopPropagation();\n        const li = e.currentTarget.closest('li');\n        if (li) {\n          li.classList.toggle('expanded');\n        }\n      }\n    });\n  });\n}\n\n\n//# sourceURL=webpack://twentytwentyfive/./src/js/burger.js?\n}");
+
+/***/ },
+
+/***/ "./src/js/faq.js"
+/*!***********************!*\
+  !*** ./src/js/faq.js ***!
+  \***********************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   initFaq: () => (/* binding */ initFaq)\n/* harmony export */ });\nfunction initFaq() {\n  const faqItems = document.querySelectorAll('.faq__item');\n  if (!faqItems.length) return;\n\n  // Open first item by default\n  const firstItem = faqItems[0];\n  const firstAnswer = firstItem.querySelector('.faq__answer');\n  firstItem.classList.add('active');\n  firstAnswer.style.maxHeight = firstAnswer.scrollHeight + 'px';\n\n  faqItems.forEach(item => {\n    const question = item.querySelector('.faq__question');\n    const answer = item.querySelector('.faq__answer');\n\n    question.addEventListener('click', () => {\n      const isActive = item.classList.contains('active');\n\n      // Close all\n      faqItems.forEach(i => {\n        const a = i.querySelector('.faq__answer');\n        i.classList.remove('active');\n        a.style.maxHeight = null;\n      });\n\n      // Open clicked if it wasn't active\n      if (!isActive) {\n        item.classList.add('active');\n        answer.style.maxHeight = answer.scrollHeight + 'px';\n      }\n    });\n  });\n}\n\n\n//# sourceURL=webpack://twentytwentyfive/./src/js/faq.js?\n}");
+
+/***/ },
+
+/***/ "./src/js/iframe-lazy.js"
+/*!*******************************!*\
+  !*** ./src/js/iframe-lazy.js ***!
+  \*******************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   initLazyIframes: () => (/* binding */ initLazyIframes)\n/* harmony export */ });\nfunction initLazyIframes() {\n  const iframes = document.querySelectorAll('iframe[data-src]');\n  if (iframes.length === 0) return;\n\n  const observer = new IntersectionObserver(\n    (entries) => {\n      entries.forEach((entry) => {\n        if (entry.isIntersecting) {\n          const iframe = entry.target;\n          iframe.src = iframe.dataset.src;\n          observer.unobserve(iframe);\n        }\n      });\n    },\n    { rootMargin: '100px' }\n  );\n\n  iframes.forEach((iframe) => observer.observe(iframe));\n}\n\n\n//# sourceURL=webpack://twentytwentyfive/./src/js/iframe-lazy.js?\n}");
+
+/***/ },
+
+/***/ "./src/js/modal.js"
+/*!*************************!*\
+  !*** ./src/js/modal.js ***!
+  \*************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   initModal: () => (/* binding */ initModal)\n/* harmony export */ });\nfunction initModal() {\n  const modalWrap = document.querySelector('.modal-wrap');\n  if (!modalWrap) return;\n\n  const mask = modalWrap.querySelector('.mask');\n  const closeBtn = modalWrap.querySelector('.close');\n  const form = modalWrap.querySelector('form');\n  const successMessage = modalWrap.querySelector('.success-message');\n  const formContent = modalWrap.querySelector('.form-content');\n  const modalTitle = modalWrap.querySelector('.modal-title');\n\n  function openModal() {\n    modalWrap.classList.add('active');\n    document.body.style.overflow = 'hidden';\n  }\n\n  function closeModal() {\n    modalWrap.classList.remove('active');\n    document.body.style.overflow = 'auto';\n    // Reset success state\n    if (successMessage) successMessage.style.display = 'none';\n    if (formContent) formContent.style.display = 'block';\n    if (modalTitle) modalTitle.textContent = 'Request';\n  }\n\n  // Open triggers\n  document.querySelectorAll('[data-open-modal]').forEach(btn => {\n    btn.addEventListener('click', (e) => {\n      e.preventDefault();\n      openModal();\n    });\n  });\n\n  // Close triggers\n  if (mask) mask.addEventListener('click', closeModal);\n  if (closeBtn) closeBtn.addEventListener('click', closeModal);\n\n  // Success close button\n  const successCloseBtn = modalWrap.querySelector('.success-message .btn button');\n  if (successCloseBtn) {\n    successCloseBtn.addEventListener('click', closeModal);\n  }\n\n  // Form submission\n  if (form) {\n    form.addEventListener('submit', (e) => {\n      e.preventDefault();\n\n      // Validation\n      let isValid = true;\n      const fields = {\n        city: form.querySelector('[name=\"city\"]'),\n        name: form.querySelector('[name=\"person-name\"]'),\n        person: form.querySelector('[name=\"person-private\"]'),\n        email: form.querySelector('[name=\"email\"]'),\n        phone: form.querySelector('[name=\"phone\"]'),\n      };\n\n      // Clear previous errors\n      form.querySelectorAll('.error-msg').forEach(el => el.textContent = '');\n\n      if (fields.city && !fields.city.value.trim()) {\n        showError(fields.city, '*Enter your city');\n        isValid = false;\n      }\n      if (fields.name && !fields.name.value.trim()) {\n        showError(fields.name, '*Enter your name');\n        isValid = false;\n      }\n      if (fields.person && !fields.person.value.trim()) {\n        showError(fields.person, '*Enter your role');\n        isValid = false;\n      }\n      if (fields.email) {\n        if (!fields.email.value.trim()) {\n          showError(fields.email, '*Enter your email');\n          isValid = false;\n        } else if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(fields.email.value)) {\n          showError(fields.email, '*Enter a valid email');\n          isValid = false;\n        }\n      }\n      if (fields.phone && !fields.phone.value.trim()) {\n        showError(fields.phone, '*Enter your number');\n        isValid = false;\n      }\n\n      if (!isValid) return;\n\n      const submitBtn = form.querySelector('[type=\"submit\"]');\n      const spinner = form.querySelector('.spinner');\n      if (submitBtn) submitBtn.disabled = true;\n      if (submitBtn) submitBtn.value = 'Sending...';\n      if (spinner) spinner.style.display = 'flex';\n\n      const body = new FormData(form);\n\n      fetch(form.action, {\n        method: 'POST',\n        body,\n      })\n        .then(res => res.json())\n        .then(data => {\n          if (submitBtn) submitBtn.disabled = false;\n          if (submitBtn) submitBtn.value = 'Send Request';\n          if (spinner) spinner.style.display = 'none';\n\n          if (data.status === 'mail_sent') {\n            if (formContent) formContent.style.display = 'none';\n            if (successMessage) successMessage.style.display = 'flex';\n            if (modalTitle) modalTitle.textContent = 'Boney M. feat Liz Mitchell';\n            form.reset();\n          } else {\n            const errEl = form.querySelector('.form-error');\n            if (errEl) errEl.style.display = 'block';\n          }\n        })\n        .catch(() => {\n          if (submitBtn) submitBtn.disabled = false;\n          if (submitBtn) submitBtn.value = 'Send Request';\n          if (spinner) spinner.style.display = 'none';\n          const errEl = form.querySelector('.form-error');\n          if (errEl) errEl.style.display = 'block';\n        });\n    });\n  }\n\n  function showError(field, message) {\n    const wrap = field.closest('.field-wrap');\n    if (wrap) {\n      let errEl = wrap.querySelector('.error-msg');\n      if (!errEl) {\n        errEl = document.createElement('span');\n        errEl.className = 'error-msg';\n        wrap.appendChild(errEl);\n      }\n      errEl.textContent = message;\n    }\n  }\n}\n\n\n//# sourceURL=webpack://twentytwentyfive/./src/js/modal.js?\n}");
+
+/***/ },
+
+/***/ "./src/js/player.js"
+/*!**************************!*\
+  !*** ./src/js/player.js ***!
+  \**************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   initPlayer: () => (/* binding */ initPlayer)\n/* harmony export */ });\nfunction initPlayer() {\n  const playerEl = document.querySelector('.player-wrap');\n  if (!playerEl) return;\n\n  const audio = document.getElementById('audio-player');\n  if (!audio) return;\n\n  const songs = JSON.parse(playerEl.dataset.tracks || '[]');\n  if (songs.length === 0) return;\n\n  let currentSongIndex = 0;\n  let isPlaying = false;\n\n  const coverImg = playerEl.querySelector('.cover');\n  const currentSongEl = playerEl.querySelector('.current-song');\n  const currentArtistEl = playerEl.querySelector('.current-artist');\n  const timeCurrentEl = playerEl.querySelector('.time-current');\n  const timeDurationEl = playerEl.querySelector('.time-duration');\n  const animateTrack = playerEl.querySelector('.animate-track');\n  const rangeInput = playerEl.querySelector('input[type=\"range\"]');\n  const playBtn = playerEl.querySelector('.play-btn');\n  const prevBtn = playerEl.querySelector('.skip-back');\n  const nextBtn = playerEl.querySelector('.skip-forward');\n  const librarySongs = playerEl.querySelectorAll('.library-song');\n\n  const defaultCover = playerEl.dataset.defaultCover || '';\n\n  function formatTime(time) {\n    if (isNaN(time)) return '0:00';\n    return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2);\n  }\n\n  function animateCoverChange() {\n    if (!coverImg) return;\n    coverImg.classList.remove('is-changing');\n    void coverImg.offsetWidth;\n    coverImg.classList.add('is-changing');\n    coverImg.addEventListener('animationend', () => {\n      coverImg.classList.remove('is-changing');\n    }, { once: true });\n  }\n\n  function updateUI(trackChanged) {\n    const song = songs[currentSongIndex];\n    if (!song) return;\n\n    if (coverImg) {\n      const coverUrl = song.cover ? (song.cover.url || song.cover) : defaultCover;\n      if (trackChanged) animateCoverChange();\n      coverImg.src = coverUrl || defaultCover;\n    }\n\n    if (currentSongEl) {\n      if (trackChanged) {\n        currentSongEl.style.opacity = '0';\n        setTimeout(() => {\n          currentSongEl.textContent = song.track_name || '';\n          currentSongEl.style.opacity = '1';\n        }, 150);\n      } else {\n        currentSongEl.textContent = song.track_name || '';\n      }\n    }\n\n    if (currentArtistEl) {\n      if (trackChanged) {\n        currentArtistEl.style.opacity = '0';\n        setTimeout(() => {\n          currentArtistEl.textContent = song.artist || '';\n          currentArtistEl.style.opacity = '0.7';\n        }, 200);\n      } else {\n        currentArtistEl.textContent = song.artist || '';\n      }\n    }\n\n    // Play/pause icon\n    if (playBtn) {\n      playBtn.src = isPlaying ? playBtn.dataset.pauseIcon : playBtn.dataset.playIcon;\n      playBtn.alt = isPlaying ? 'pause' : 'play';\n      playBtn.classList.toggle('is-playing-anim', isPlaying);\n    }\n\n    // Library highlight\n    librarySongs.forEach((el, i) => {\n      el.classList.toggle('is-playing', i === currentSongIndex);\n      const icon = el.querySelector('.song-play-icon');\n      if (icon) {\n        icon.src = (isPlaying && i === currentSongIndex) ? icon.dataset.pauseIcon : icon.dataset.playIcon;\n      }\n    });\n\n    // Duration displays\n    librarySongs.forEach((el, i) => {\n      const dur = el.querySelector('.duration');\n      if (dur && i === currentSongIndex && audio.duration) {\n        dur.textContent = formatTime(audio.duration);\n      } else if (dur && i !== currentSongIndex) {\n        dur.textContent = '--:--';\n      }\n    });\n  }\n\n  function loadSong(index) {\n    const song = songs[index];\n    if (!song) return;\n    audio.src = song.audio;\n    audio.load();\n  }\n\n  function playSong() {\n    if (!audio.src || audio.src === window.location.href) {\n      loadSong(currentSongIndex);\n    }\n    audio.play().catch(() => { isPlaying = false; updateUI(false); });\n    isPlaying = true;\n    updateUI(false);\n  }\n\n  function pauseSong() {\n    audio.pause();\n    isPlaying = false;\n    updateUI(false);\n  }\n\n  function togglePlay() {\n    isPlaying ? pauseSong() : playSong();\n  }\n\n  function skipTo(index) {\n    if (index === currentSongIndex) {\n      togglePlay();\n      return;\n    }\n    currentSongIndex = index;\n    loadSong(currentSongIndex);\n    if (isPlaying) {\n      audio.addEventListener('canplay', function handler() {\n        audio.play().catch(() => {});\n        audio.removeEventListener('canplay', handler);\n      });\n    } else {\n      playSong();\n    }\n    updateUI(true);\n  }\n\n  // Events\n  if (playBtn) playBtn.addEventListener('click', togglePlay);\n\n  if (prevBtn) {\n    prevBtn.addEventListener('click', () => {\n      currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;\n      loadSong(currentSongIndex);\n      if (isPlaying) {\n        audio.addEventListener('canplay', function handler() {\n          audio.play().catch(() => {});\n          audio.removeEventListener('canplay', handler);\n        });\n      }\n      updateUI(true);\n    });\n  }\n\n  if (nextBtn) {\n    nextBtn.addEventListener('click', () => {\n      currentSongIndex = (currentSongIndex + 1) % songs.length;\n      loadSong(currentSongIndex);\n      if (isPlaying) {\n        audio.addEventListener('canplay', function handler() {\n          audio.play().catch(() => {});\n          audio.removeEventListener('canplay', handler);\n        });\n      }\n      updateUI(true);\n    });\n  }\n\n  librarySongs.forEach((el, i) => {\n    el.addEventListener('click', () => skipTo(i));\n  });\n\n  // Smooth progress bar — interpolate between timeupdate ticks\n  let rafId = null;\n  let knownTime = 0;\n  let knownAt = 0;\n  let lastTextUpdate = 0;\n\n  audio.addEventListener('timeupdate', () => {\n    knownTime = audio.currentTime;\n    knownAt = performance.now();\n  });\n\n  function updateProgress() {\n    const duration = audio.duration;\n\n    if (duration && !isNaN(duration) && isPlaying) {\n      // Predict current position based on last known time + elapsed\n      const elapsed = (performance.now() - knownAt) / 1000;\n      const predicted = Math.min(knownTime + elapsed, duration);\n      const percentage = (predicted / duration) * 100;\n\n      if (animateTrack) {\n        animateTrack.style.transform = `translateX(${percentage}%)`;\n      }\n      if (rangeInput) {\n        rangeInput.value = predicted;\n        rangeInput.max = duration;\n      }\n\n      const now = Date.now();\n      if (now - lastTextUpdate > 250) {\n        if (timeCurrentEl) timeCurrentEl.textContent = formatTime(predicted);\n        if (timeDurationEl) timeDurationEl.textContent = formatTime(duration);\n        const activeSong = librarySongs[currentSongIndex];\n        if (activeSong) {\n          const dur = activeSong.querySelector('.duration');\n          if (dur) dur.textContent = formatTime(duration);\n        }\n        lastTextUpdate = now;\n      }\n    }\n\n    rafId = requestAnimationFrame(updateProgress);\n  }\n\n  audio.addEventListener('play', () => {\n    knownTime = audio.currentTime;\n    knownAt = performance.now();\n    if (!rafId) rafId = requestAnimationFrame(updateProgress);\n  });\n  audio.addEventListener('pause', () => {\n    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }\n  });\n  audio.addEventListener('seeked', () => {\n    knownTime = audio.currentTime;\n    knownAt = performance.now();\n  });\n\n  audio.addEventListener('ended', () => {\n    currentSongIndex = (currentSongIndex + 1) % songs.length;\n    loadSong(currentSongIndex);\n    audio.addEventListener('canplay', function handler() {\n      audio.play().catch(() => { isPlaying = false; updateUI(false); });\n      audio.removeEventListener('canplay', handler);\n    });\n    updateUI(true);\n  });\n\n  if (rangeInput) {\n    rangeInput.addEventListener('input', (e) => {\n      audio.currentTime = e.target.value;\n    });\n  }\n\n  updateUI(false);\n}\n\n\n//# sourceURL=webpack://twentytwentyfive/./src/js/player.js?\n}");
+
+/***/ },
+
+/***/ "./src/js/text-slider.js"
+/*!*******************************!*\
+  !*** ./src/js/text-slider.js ***!
+  \*******************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   initTextSliders: () => (/* binding */ initTextSliders)\n/* harmony export */ });\nfunction initTextSliders() {\n  const el = document.querySelector('.description-swiper');\n  if (!el || typeof Swiper === 'undefined') return;\n\n  const swiper = new Swiper('.description-swiper', {\n    loop: true,\n    speed: 600,\n    autoHeight: true,\n    grabCursor: true,\n  });\n}\n\n\n//# sourceURL=webpack://twentytwentyfive/./src/js/text-slider.js?\n}");
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	
+/******/ })()
+;
