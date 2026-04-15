@@ -1,11 +1,16 @@
 <?php
 $photos = theme_get_instagram_photos(8);
 if (empty($photos)) return;
+
+$insta = get_field('instagram', 'option');
+$title = $insta['title'] ?? 'Social Media';
+$btn_text = $insta['btn_text'] ?? 'View more on Instagram';
+$url = $insta['url'] ?? '#';
 ?>
 <div class="white-bg spacing-lg">
   <div class="columnar">
     <div class="instagram-section">
-      <h2 class="wow fadeInUp">Social Media</h2>
+      <h2 class="wow fadeInUp"><?php echo esc_html($title); ?></h2>
       <div class="instagram-grid">
         <?php foreach ($photos as $index => $photo) : ?>
           <a href="<?php echo esc_url($photo['link']); ?>" target="_blank" rel="noopener noreferrer" class="instagram-item wow fadeInUp" data-wow-delay="<?php echo ($index * 0.08); ?>s">
@@ -13,11 +18,13 @@ if (empty($photos)) return;
           </a>
         <?php endforeach; ?>
       </div>
-      <div class="instagram-cta">
-        <a href="https://www.instagram.com/laborlov/" target="_blank" rel="noopener noreferrer" class="button button--outline">
-          View more on Instagram
-        </a>
-      </div>
+      <?php if ($url && $btn_text) : ?>
+        <div class="instagram-cta">
+          <a href="<?php echo esc_url($url); ?>" target="_blank" rel="noopener noreferrer" class="button button--outline">
+            <?php echo esc_html($btn_text); ?>
+          </a>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 </div>
