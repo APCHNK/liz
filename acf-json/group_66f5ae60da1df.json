@@ -109,10 +109,10 @@
                 },
                 {
                     "key": "field_66f5b0022e116",
-                    "label": "Audio",
-                    "name": "audio",
-                    "type": "file",
-                    "instructions": "",
+                    "label": "Spotify Embed",
+                    "name": "spotify_embed",
+                    "type": "textarea",
+                    "instructions": "Paste full Spotify embed iframe code",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -120,12 +120,8 @@
                         "class": "",
                         "id": ""
                     },
-                    "show_in_graphql": 1,
-                    "return_format": "url",
-                    "library": "all",
-                    "min_size": "",
-                    "max_size": "",
-                    "mime_types": ""
+                    "rows": 3,
+                    "new_lines": ""
                 }
             ]
         }
