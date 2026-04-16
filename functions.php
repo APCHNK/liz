@@ -72,7 +72,7 @@ add_filter('theme_page_templates', function ($templates) {
 });
 
 // -----------------------------------------------------------------------------
-// Remove block theme styles that conflict with our custom CSS
+// Remove block theme styles and unused scripts
 // -----------------------------------------------------------------------------
 add_action('wp_enqueue_scripts', function () {
     wp_dequeue_style('wp-block-library');
@@ -81,7 +81,16 @@ add_action('wp_enqueue_scripts', function () {
     wp_dequeue_style('classic-theme-styles');
     wp_dequeue_style('wp-img-auto-sizes-contain');
     wp_dequeue_style('wp-emoji-styles');
+
+    // Remove jQuery on frontend (not needed)
+    if (!is_admin()) {
+        wp_deregister_script('jquery');
+    }
 }, 100);
+
+// Remove emoji scripts and styles
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
 
 remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
 remove_action('wp_body_open', 'wp_global_styles_render_svg_filters');
@@ -134,6 +143,19 @@ add_action('template_redirect', function () {
     if (is_user_logged_in() || is_admin()) return;
     header('Cache-Control: public, max-age=300, s-maxage=3600');
 });
+
+// -----------------------------------------------------------------------------
+// Preload LCP image (banner) for faster rendering
+// -----------------------------------------------------------------------------
+add_action('wp_head', function () {
+    if (is_front_page()) {
+        $banner = get_field('banner');
+        $image = $banner['image'] ?? null;
+        if ($image) {
+            echo '<link rel="preload" as="image" href="' . esc_url($image['url']) . '" fetchpriority="high">' . "\n";
+        }
+    }
+}, 1);
 
 // -----------------------------------------------------------------------------
 // Google Analytics / GTM
