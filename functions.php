@@ -136,6 +136,124 @@ add_action('template_redirect', function () {
 });
 
 // -----------------------------------------------------------------------------
+// Schema.org structured data
+// -----------------------------------------------------------------------------
+add_action('wp_head', function () {
+    if (is_front_page()) {
+        // MusicGroup + Person schema
+        $schema = array(
+            '@context' => 'https://schema.org',
+            '@graph' => array()
+        );
+
+        // Person - Liz Mitchell
+        $person = array(
+            '@type' => 'Person',
+            '@id' => home_url('/#person'),
+            'name' => 'Liz Mitchell',
+            'jobTitle' => 'Singer',
+            'description' => 'The Original lead singer of Boney M',
+            'url' => home_url('/'),
+        );
+
+        $logo = get_field('header_logo', 'option') ?: get_field('logo', 'option');
+        if ($logo) {
+            $person['image'] = $logo['url'];
+        }
+
+        $schema['@graph'][] = $person;
+
+        // MusicGroup - Boney M
+        $schema['@graph'][] = array(
+            '@type' => 'MusicGroup',
+            '@id' => home_url('/#musicgroup'),
+            'name' => 'Boney M feat Liz Mitchell',
+            'url' => home_url('/'),
+            'member' => array(
+                '@id' => home_url('/#person'),
+            ),
+            'genre' => array('Disco', 'Pop', 'Eurodisco'),
+        );
+
+        // Events from schedule
+        if (have_rows('flex-content')) {
+            while (have_rows('flex-content')) { the_row();
+                if (have_rows('content')) {
+                    while (have_rows('content')) { the_row();
+                        if (get_row_layout() === 'schedule') {
+                            $items = get_sub_field('items');
+                            if ($items && is_array($items)) {
+                                $now = time();
+                                foreach ($items as $item) {
+                                    if (empty($item['date'])) continue;
+                                    $parts = explode('/', $item['date']);
+                                    if (count($parts) !== 3) continue;
+                                    $ts = strtotime("{$parts[2]}-{$parts[1]}-{$parts[0]}");
+                                    if ($ts < $now) continue;
+
+                                    $event = array(
+                                        '@type' => 'MusicEvent',
+                                        'name' => 'Boney M feat Liz Mitchell - ' . ($item['text'] ?? ''),
+                                        'startDate' => date('Y-m-d', $ts),
+                                        'performer' => array('@id' => home_url('/#musicgroup')),
+                                        'eventStatus' => 'https://schema.org/EventScheduled',
+                                        'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+                                    );
+
+                                    if (!empty($item['text'])) {
+                                        $event['location'] = array(
+                                            '@type' => 'Place',
+                                            'name' => $item['text'],
+                                        );
+                                    }
+
+                                    if (!empty($item['link'])) {
+                                        $event['offers'] = array(
+                                            '@type' => 'Offer',
+                                            'url' => $item['link'],
+                                            'availability' => 'https://schema.org/InStock',
+                                        );
+                                    }
+
+                                    $schema['@graph'][] = $event;
+                                }
+                            }
+                        }
+
+                        // FAQ
+                        if (get_row_layout() === 'faq') {
+                            $questions = get_sub_field('questions');
+                            if ($questions && is_array($questions)) {
+                                $faq_entities = array();
+                                foreach ($questions as $q) {
+                                    $faq_entities[] = array(
+                                        '@type' => 'Question',
+                                        'name' => $q['question'] ?? '',
+                                        'acceptedAnswer' => array(
+                                            '@type' => 'Answer',
+                                            'text' => strip_tags($q['answer'] ?? ''),
+                                        ),
+                                    );
+                                }
+                                if (!empty($faq_entities)) {
+                                    $schema['@graph'][] = array(
+                                        '@type' => 'FAQPage',
+                                        'mainEntity' => $faq_entities,
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            reset_rows();
+        }
+
+        echo '<script type="application/ld+json">' . json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>' . "\n";
+    }
+}, 5);
+
+// -----------------------------------------------------------------------------
 // Google Analytics / GTM
 // -----------------------------------------------------------------------------
 add_action('wp_head', function () {
