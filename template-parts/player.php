@@ -36,11 +36,12 @@ $first_url = $tracks_json[0]['spotify_url'] ?? '';
       <?php if ($first_url) : ?>
         <iframe
           id="spotify-player"
-          data-src="<?php echo esc_url($first_url); ?>"
+          src="<?php echo esc_url($first_url); ?>"
           width="100%"
           height="232"
           frameborder="0"
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
           style="border-radius:12px;"
         ></iframe>
       <?php endif; ?>

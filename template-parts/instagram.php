@@ -14,7 +14,7 @@ $url = $insta['url'] ?? '#';
       <div class="instagram-grid">
         <?php foreach ($photos as $index => $photo) : ?>
           <a href="<?php echo esc_url($photo['link']); ?>" target="_blank" rel="noopener noreferrer" class="instagram-item wow fadeInUp" data-wow-delay="<?php echo ($index * 0.08); ?>s">
-            <img src="<?php echo esc_url($photo['url']); ?>" alt="Instagram" loading="lazy" width="320" height="320">
+            <img src="<?php echo esc_url($photo['url']); ?>" alt="Instagram" loading="lazy">
           </a>
         <?php endforeach; ?>
       </div>

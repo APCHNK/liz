@@ -15,7 +15,7 @@ if (!$title && !$text) return;
   <div class="columnar">
     <div class="contact">
       <?php if (!empty($image['url'])) : ?>
-        <img class="wow fadeInLeft" src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt'] ?? ''); ?>" width="<?php echo esc_attr($image['width'] ?? ''); ?>" height="<?php echo esc_attr($image['height'] ?? ''); ?>" loading="lazy">
+        <img class="wow fadeInLeft" src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt'] ?? ''); ?>">
       <?php endif; ?>
       <div class="action wow fadeInRight" data-wow-delay="0.2s">
         <?php if ($title) : ?>
