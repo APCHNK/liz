@@ -1,9 +1,8 @@
 <?php
 $headline = get_sub_field('headline');
-$text_area = get_sub_field('text_area');
 $slides = get_sub_field('slides');
 
-if ((!$headline || (!$headline['title'] && !$headline['subtitle'])) && !$text_area && !$slides) return;
+if ((!$headline || (!$headline['title'] && !$headline['subtitle'])) && !$slides) return;
 
 $has_slider = $slides && is_array($slides) && count($slides) > 1;
 ?>
@@ -28,10 +27,6 @@ $has_slider = $slides && is_array($slides) && count($slides) > 1;
           <?php endforeach; ?>
         </div>
       </div>
-    </div>
-  <?php elseif ($text_area) : ?>
-    <div class="description load-fadeInUp load-delay-1">
-      <?php echo wp_kses_post($text_area); ?>
     </div>
   <?php endif; ?>
 </div>
