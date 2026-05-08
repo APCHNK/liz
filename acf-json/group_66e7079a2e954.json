@@ -206,6 +206,14 @@
                     "name": "url",
                     "type": "url",
                     "default_value": ""
+                },
+                {
+                    "key": "field_instagram_title_as_link",
+                    "label": "Title as Link (with icon)",
+                    "name": "title_as_link",
+                    "type": "true_false",
+                    "ui": 1,
+                    "instructions": "Render the section title as a link to the Instagram URL with an icon next to it."
                 }
             ]
         }
