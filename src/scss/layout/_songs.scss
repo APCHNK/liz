@@ -130,6 +130,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: rotate(180deg);
 
   @media screen and (max-width: 512px) {
     margin: 32px auto -65%;
