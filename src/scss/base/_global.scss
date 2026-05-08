@@ -1,15 +1,6 @@
 main {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-
-    @include media-tablet {
-        gap: 60px;
-    }
-
-    @include media-laptop {
-        gap: 80px;
-    }
 }
 
 // Load animations (play on page load, not scroll)

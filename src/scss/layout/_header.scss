@@ -35,6 +35,68 @@ header {
   position: relative;
   width: 100%;
 
+  // Header extras (Instagram + lang switcher) — desktop only.
+  .header-extras {
+    align-items: center;
+    display: none;
+    gap: 12px;
+
+    @include media-laptop {
+      display: inline-flex;
+      order: 2;
+    }
+  }
+
+  .header-social {
+    align-items: center;
+    color: $color-dark;
+    display: inline-flex;
+    height: 32px;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+    width: 32px;
+
+    &:hover,
+    &:focus-visible {
+      opacity: 0.75;
+    }
+
+    svg {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .header-divider {
+    background: #c9a5b2;
+    display: inline-block;
+    height: 31px;
+    width: 1px;
+  }
+
+  // Mobile copy of extras lives inside .menu so it shows up under the nav.
+  .menu-extras {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 32px;
+    padding: 0 16px;
+    width: 100%;
+
+    @include media-laptop {
+      display: none;
+    }
+    @media screen and (max-width: 768px) {
+      justify-content: flex-start;
+    }
+
+    .header-divider {
+      background: rgba($color-dark, 0.32);
+    }
+  }
+
   .toggle-menu {
     cursor: pointer;
     height: 24px;

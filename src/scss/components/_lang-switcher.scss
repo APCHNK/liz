@@ -1,0 +1,42 @@
+.lang-switcher {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+
+  a,
+  button {
+    align-items: center;
+    background: transparent;
+    border: 1px solid $color-primary;
+    border-radius: 36px;
+    color: $color-primary;
+    cursor: pointer;
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-size: 16px;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 16px;
+    padding: 6px 16px;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+      background: rgba($color-primary, 0.08);
+    }
+
+    &.is-active,
+    &.current {
+      background: $color-primary;
+      border-color: $color-primary;
+      color: $color-white;
+
+      &:hover {
+        background: $color-primary-hover;
+        border-color: $color-primary-hover;
+        color: $color-white;
+      }
+    }
+  }
+}
