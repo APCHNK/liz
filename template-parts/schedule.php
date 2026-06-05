@@ -1,6 +1,6 @@
 <?php
-$title = get_sub_field('title');
-$items = get_sub_field('items');
+$title = get_sub_field('title'); // section title stays editable on the page block
+$items = get_field('schedule_items', 'option'); // dates managed globally in Schedule options page
 
 if (!$items || !is_array($items)) return;
 
