@@ -29,9 +29,12 @@ function format_schedule_date($dateStr) {
   $parts = explode('/', $dateStr);
   if (count($parts) !== 3) return $dateStr;
   $ts = strtotime("{$parts[2]}-{$parts[1]}-{$parts[0]}");
-  return date('j F Y', $ts);
+  return date_i18n('j F Y', $ts); // month name follows the page locale
 }
 endif;
+
+// RU when Polylang serves /ru/ (it switches the locale) or the whole site runs in Russian
+$is_ru = strpos(get_locale(), 'ru') === 0;
 ?>
 <div class="schedule">
   <?php if ($title) : ?>
@@ -45,8 +48,9 @@ endif;
         <?php endif; ?>
         <div class="info">
           <div>
-            <?php if (!empty($item['text'])) : ?>
-              <h3><?php echo esc_html($item['text']); ?></h3>
+            <?php $item_text = ($is_ru && !empty($item['text_ru'])) ? $item['text_ru'] : ($item['text'] ?? ''); ?>
+            <?php if ($item_text) : ?>
+              <h3><?php echo esc_html($item_text); ?></h3>
             <?php endif; ?>
             <?php if (!empty($item['date'])) : ?>
               <span><?php echo esc_html(format_schedule_date($item['date'])); ?></span>
@@ -54,7 +58,7 @@ endif;
           </div>
           <?php if (!empty($item['link'])) : ?>
             <a href="<?php echo esc_url($item['link']); ?>" target="_blank" rel="noopener noreferrer">
-              <button class="button button--secondary button--small">Buy tickets</button>
+              <button class="button button--secondary button--small"><?php echo $is_ru ? 'Купить билеты' : 'Buy tickets'; ?></button>
             </a>
           <?php endif; ?>
         </div>
