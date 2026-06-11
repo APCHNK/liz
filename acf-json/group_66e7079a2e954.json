@@ -215,6 +215,27 @@
                     },
                     "show_in_graphql": 1,
                     "return_format": "array"
+                },
+                {
+                    "key": "field_contact_book_button_text_ru",
+                    "label": "Book Button Text (RU)",
+                    "name": "book_button_text_ru",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Optional. RU version replaces the button label (URL stays the same).",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "show_in_graphql": 1,
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
                 }
             ]
         },
