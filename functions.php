@@ -277,7 +277,7 @@ class Theme_Menu_Walker extends Walker_Nav_Menu {
 // RU texts for the global contact block (ACF options are not multilingual).
 // Fill "Title (RU)" / "Text (RU)" in Theme Options -> Contact; the Russian
 // version swaps them in automatically.
-add_filter('acf/load_value/name=contact', function ($value, $post_id, $field) {
+add_filter('acf/format_value/name=contact', function ($value, $post_id, $field) {
     if ($post_id !== 'option' && $post_id !== 'options') return $value;
     if (is_admin() && !wp_doing_ajax()) return $value;
     if (strpos(get_locale(), 'ru') !== 0) return $value;
