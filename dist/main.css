@@ -2410,3 +2410,9 @@ input[type=submit]:hover {
   border-color: #cf1f14;
   color: #ffffff;
 }
+
+@media (min-width: 1280px) {
+  .banner .banner-img img {
+    object-fit: cover;
+  }
+}

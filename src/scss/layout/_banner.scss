@@ -99,3 +99,10 @@
     }
   }
 }
+
+// Desktop: the hero section is 100vh, so let the photo cover its box instead of letterboxing.
+@media (min-width: 1280px) {
+  .banner .banner-img img {
+    object-fit: cover;
+  }
+}
