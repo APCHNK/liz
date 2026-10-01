@@ -2438,3 +2438,8 @@ input[type=submit]:hover {
     margin-right: 8px;
   }
 }
+
+.banner {
+  height: 100vh;
+  height: 100svh;
+}
