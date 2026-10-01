@@ -42,7 +42,7 @@ endif;
 // RU when Polylang serves /ru/ (it switches the locale) or the whole site runs in Russian
 $is_ru = strpos(get_locale(), 'ru') === 0;
 ?>
-<div class="schedule">
+<div class="schedule" id="tour-dates" style="scroll-margin-top: 120px">
   <?php if ($title) : ?>
     <h2 class="wow fadeInUp"><?php echo esc_html($title); ?></h2>
   <?php endif; ?>
