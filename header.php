@@ -9,11 +9,13 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet"></noscript>
+  <?php // Arial tuned to Manrope's metrics, so the async font swap does not reflow text (CLS). ?>
+  <style>@font-face{font-family:'Manrope Fallback';src:local('Arial'),local('Helvetica'),local('Liberation Sans');size-adjust:104.22%;ascent-override:102.29%;descent-override:28.79%;line-gap-override:0%}</style>
   <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/animate.min.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print" onload="this.media='all'">
   <?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?> style="font-family: 'Manrope', sans-serif;">
+<body <?php body_class(); ?> style="font-family: 'Manrope', 'Manrope Fallback', sans-serif;">
   <?php wp_body_open(); ?>
   <div class="app-wrapper">
     <header class="spacing-xs header">
