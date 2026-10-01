@@ -168,13 +168,19 @@ add_action('wp_head', function () {
 // -----------------------------------------------------------------------------
 // Google Analytics / GTM
 // -----------------------------------------------------------------------------
+// GTM pulls in GA4, Universal Analytics and Yandex Metrika (~1 s of main-thread
+// work on mobile), so it loads on the first user interaction or 4 s after the
+// page load event, whichever comes first, to keep it out of LCP/TBT/INP.
 add_action('wp_head', function () {
     ?>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    <!-- Google Tag Manager (deferred) -->
+    <script>(function(w,d,s,l,i){var done=false,ev=['pointerdown','keydown','touchstart','scroll'];
+    function load(){if(done)return;done=true;ev.forEach(function(e){w.removeEventListener(e,load,{passive:true});});
+    w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}
+    ev.forEach(function(e){w.addEventListener(e,load,{passive:true});});
+    w.addEventListener('load',function(){setTimeout(load,4000);});
     })(window,document,'script','dataLayer','GTM-KZ8FXG3');</script>
     <?php
 }, 1);
