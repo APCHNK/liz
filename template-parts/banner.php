@@ -4,6 +4,7 @@ if (!$banner) return;
 
 $image = $banner['image'] ?? null;
 $title = $banner['title'] ?? '';
+$title_small = $banner['title_small'] ?? ''; // optional small line above the big title, same H1
 $subtitle = $banner['subtitle'] ?? '';
 $button = $banner['button'] ?? null;
 $use_modal = $banner['use_modal'] ?? true;
@@ -21,7 +22,7 @@ if (!$title) return;
       <div class="heading">
         <div>
           <?php if ($title) : ?>
-            <h1 class="wow-desktop fadeInUp" data-wow-delay="0.3s"><?php echo esc_html($title); ?></h1>
+            <h1 class="wow-desktop fadeInUp" data-wow-delay="0.3s"><?php if ($title_small) : ?><span class="banner-title__small"><?php echo esc_html($title_small); ?></span> <span class="banner-title__big"><?php echo esc_html($title); ?></span><?php else : ?><?php echo esc_html($title); ?><?php endif; ?></h1>
           <?php endif; ?>
           <?php if ($subtitle) : ?>
             <p class="wow-desktop fadeInUp" data-wow-delay="0.5s"><?php echo esc_html($subtitle); ?></p>
