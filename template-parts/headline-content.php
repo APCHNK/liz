@@ -1,10 +1,13 @@
 <?php
 $headline = get_sub_field('headline');
 $slides = get_sub_field('slides');
+// slides with actual text only; an empty default slide must not hide the Text Area
+$slides = is_array($slides) ? array_values(array_filter($slides, fn($s) => trim(strip_tags($s['content'] ?? '')) !== '')) : [];
+$text_area = get_sub_field('text_area');
 
-if ((!$headline || (!$headline['title'] && !$headline['subtitle'])) && !$slides) return;
+if ((!$headline || (!$headline['title'] && !$headline['subtitle'])) && !$slides && !$text_area) return;
 
-$has_slider = $slides && is_array($slides) && count($slides) > 1;
+$has_slider = count($slides) > 1;
 ?>
 <div class="text-block">
   <div class="headline load-fadeInUp">
@@ -28,5 +31,7 @@ $has_slider = $slides && is_array($slides) && count($slides) > 1;
         </div>
       </div>
     </div>
+  <?php elseif ($slides || $text_area) : ?>
+    <div class="description load-fadeInUp load-delay-1"><?php echo wp_kses_post($slides ? $slides[0]['content'] : $text_area); ?></div>
   <?php endif; ?>
 </div>
