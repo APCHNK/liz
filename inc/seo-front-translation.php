@@ -64,3 +64,22 @@ add_action( 'template_redirect', function () {
 	wp_safe_redirect( $target, 301 );
 	exit;
 } );
+
+/**
+ * Polylang prints x-default only when browser language detection is on.
+ * Point x-default at the default-language (English) version of every page
+ * that has translations, so the en/ru pair carries en + ru + x-default.
+ */
+add_filter( 'pll_rel_hreflang_attributes', function ( $hreflangs ) {
+	if ( isset( $hreflangs['x-default'] ) || ! function_exists( 'pll_default_language' ) ) {
+		return $hreflangs;
+	}
+	$default = pll_default_language( 'slug' );
+	foreach ( $hreflangs as $code => $url ) {
+		if ( $code === $default || strpos( $code, $default . '-' ) === 0 ) {
+			$hreflangs['x-default'] = $url;
+			break;
+		}
+	}
+	return $hreflangs;
+} );
