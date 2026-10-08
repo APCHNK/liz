@@ -313,3 +313,19 @@ add_filter('acf/format_value/name=footer_copyright', function ($value, $post_id,
 require_once get_template_directory() . '/inc/fix-translation-slugs.php';
 require_once get_template_directory() . '/inc/seo-front-translation.php';
 require_once get_template_directory() . '/inc/tour-dates-menu.php';
+require_once get_template_directory() . '/inc/site-seo.php';
+
+/** Site identity for inc/site-seo.php (schema graph, booking modal, Tour Dates page). */
+function satellite_site_config() {
+    return [
+        'brand'        => 'Boney M. feat. Liz Mitchell',
+        'thanks'       => ['Thank you for your interest in Boney M. feat. Liz Mitchell.', 'Спасибо за интерес к Boney M. feat. Liz Mitchell.'],
+        'booking_slug' => 'booking-boney-m',
+        'book_cta'     => ['Book Boney M. feat. Liz Mitchell', 'Заказать Бони М feat Лиз Митчелл'],
+        'main'         => 'band',
+        'nodes'        => [
+            'band' => ['type' => 'MusicGroup', 'name' => 'Boney M. feat. Liz Mitchell', 'members' => ['liz-mitchell'], 'same_as_instagram' => true],
+            'liz-mitchell' => ['type' => 'Person', 'name' => 'Liz Mitchell', 'page' => 'boney-m-liz-mitchell-biography', 'job' => ['Singer, lead vocalist of Boney M.', 'Певица, солистка Boney M.'], 'member_of' => ['band']],
+        ],
+    ];
+}
